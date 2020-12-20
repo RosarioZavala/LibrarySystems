@@ -46,32 +46,34 @@ public class LibroEditorialDAO {
 		return libroEditorialList;
 	}
 
-	public int insertLibroEditorial (LibroEditorial libroEditorialIn) {
+	public int insertLibroEditorial(LibroEditorial libroEditorialIn) {
 		Connection connection = null;
 		int insertedRows = -3;
 		try {
-			DBConnection dbConnection = new DBConnection ();
-			connection= dbConnection.getConnection();
-			prepStatement= connection.prepareStatement(QUERY_INSERT_LIBROEDITORIAL);
-			prepStatement.setInt(1,libroEditorialIn.getIdLibro());
-			prepStatement.setInt(2,libroEditorialIn.getIdEditorial() );
-			
-			insertedRows= prepStatement.executeUpdate();
-			if( insertedRows == 1) {
-				LOG.info("Se registraron correctamente los siguientes campos" + "idLibro" + libroEditorialIn.getIdLibro()+"IdEditorial" +libroEditorialIn.getIdEditorial());
-			}else {
-				LOG.info("No se registraron correctamente los siguientes campos" + "idLibro" + libroEditorialIn.getIdLibro()+"IdEditorial" +libroEditorialIn.getIdEditorial());
+			DBConnection dbConnection = new DBConnection();
+			connection = dbConnection.getConnection();
+			prepStatement = connection.prepareStatement(QUERY_INSERT_LIBROEDITORIAL);
+			prepStatement.setInt(1, libroEditorialIn.getIdLibro());
+			prepStatement.setInt(2, libroEditorialIn.getIdEditorial());
+
+			insertedRows = prepStatement.executeUpdate();
+			if (insertedRows == 1) {
+				LOG.info("Se registraron correctamente los siguientes campos" + "idLibro"
+						+ libroEditorialIn.getIdLibro() + "IdEditorial" + libroEditorialIn.getIdEditorial());
+			} else {
+				LOG.info("No se registraron correctamente los siguientes campos" + "idLibro"
+						+ libroEditorialIn.getIdLibro() + "IdEditorial" + libroEditorialIn.getIdEditorial());
 			}
-			}catch(SQLException e) {
-				LOG.error("SQLException", e);
-			}finally {
-				if(connection != null) {
-					try {
-						connection.close();
-					}catch(SQLException e) {
-					LOG.error("SQLException", e);	
-					}
+		} catch (SQLException e) {
+			LOG.error("SQLException", e);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					LOG.error("SQLException", e);
 				}
+			}
 		}
 		return insertedRows;
 	}

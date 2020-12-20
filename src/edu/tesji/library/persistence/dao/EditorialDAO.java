@@ -18,6 +18,7 @@ public class EditorialDAO {
 	private ResultSet resultSet;
 	private static final String QUERY_SELECT_ALL_EDITORIAL = "SELECT ideditorial,nombreeditorial,lugardeimpresion FROM editorial";
 	private static final String QUERY_INSERT_EDITORIAL = "INSERT INTO editorial(nombreeditorial, lugardeimpresion) VALUES (?,?)";
+
 	public List<Editorial> selectEditorial() {
 		List<Editorial> editorialList = new ArrayList<Editorial>();
 		Connection connection = null;
@@ -45,30 +46,32 @@ public class EditorialDAO {
 		}
 		return editorialList;
 	}
-	
-	public int insertEditorial (Editorial editorialIn) {
+
+	public int insertEditorial(Editorial editorialIn) {
 		Connection connection = null;
 		int insertedRows = -3;
 		try {
-			DBConnection dbConnection = new DBConnection ();
+			DBConnection dbConnection = new DBConnection();
 			connection = dbConnection.getConnection();
 			prepStatement = connection.prepareStatement(QUERY_INSERT_EDITORIAL);
-			prepStatement.setString(1,editorialIn.getNombreEditorial());
-			prepStatement.setString(2,editorialIn.getLugarDeImpresion());
-			
+			prepStatement.setString(1, editorialIn.getNombreEditorial());
+			prepStatement.setString(2, editorialIn.getLugarDeImpresion());
+
 			insertedRows = prepStatement.executeUpdate();
-			
-			if(insertedRows == 1 ) {
-				LOG.info("Se ha insertadp correctamente el registro" + "NombreEditorial"+ editorialIn.getNombreEditorial() + "Lugar de Impresion" + editorialIn.getLugarDeImpresion());
-			}else
-				LOG.info("No se ha insertadp correctamente el registro" + "NombreEditorial"+ editorialIn.getNombreEditorial() + "Lugar de Impresion" + editorialIn.getLugarDeImpresion());
-		}catch(SQLException e) {
+
+			if (insertedRows == 1) {
+				LOG.info("Se ha insertadp correctamente el registro" + "NombreEditorial"
+						+ editorialIn.getNombreEditorial() + "Lugar de Impresion" + editorialIn.getLugarDeImpresion());
+			} else
+				LOG.info("No se ha insertadp correctamente el registro" + "NombreEditorial"
+						+ editorialIn.getNombreEditorial() + "Lugar de Impresion" + editorialIn.getLugarDeImpresion());
+		} catch (SQLException e) {
 			LOG.error("SQLException", e);
-		}finally {
+		} finally {
 			if (connection != null) {
 				try {
 					connection.close();
-				}catch (SQLException e){
+				} catch (SQLException e) {
 					LOG.error("SQLException", e);
 				}
 			}

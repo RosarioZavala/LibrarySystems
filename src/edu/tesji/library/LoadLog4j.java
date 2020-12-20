@@ -20,9 +20,6 @@ import org.apache.log4j.PropertyConfigurator;
         @WebInitParam(name = "log4jPropertiesFile", value = "/WEB-INF/log4j.properties") }, loadOnStartup = 1)
 public class LoadLog4j extends HttpServlet {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = -4326918253049345329L;
 
 	@Override
@@ -42,7 +39,7 @@ public class LoadLog4j extends HttpServlet {
             BasicConfigurator.configure();
         }
 
-        super.init(config);
-    }
+		super.init(config);
+	}
 
 }

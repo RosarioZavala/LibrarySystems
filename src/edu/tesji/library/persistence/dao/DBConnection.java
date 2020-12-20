@@ -1,6 +1,5 @@
 package edu.tesji.library.persistence.dao;
 
-
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -12,7 +11,7 @@ import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 
 public class DBConnection {
-	private static final Logger LOG=Logger.getLogger(DBConnection.class);
+	private static final Logger LOG = Logger.getLogger(DBConnection.class);
 
 	public Connection getConnection() {
 		try {

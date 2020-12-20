@@ -4,8 +4,8 @@ public class LibroAutor {
 
 	private int idLibro;
 	private int idAutor;
-	
-	/*Constructor*/
+
+	/* Constructor */
 	public LibroAutor(int idLibro, int idAutor) {
 		super();
 		this.idLibro = idLibro;
@@ -32,7 +32,5 @@ public class LibroAutor {
 	public String toString() {
 		return "LibroAutor [idLibro=" + idLibro + ", idAutor=" + idAutor + "]";
 	}
-	
-	
-	
+
 }

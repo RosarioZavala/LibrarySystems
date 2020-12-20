@@ -29,10 +29,12 @@ public class CarritoComprasDAO {
 			resultSet = prepStatement.executeQuery();
 
 			while (resultSet.next()) {
-				CarritoCompras carritoCompra = new CarritoCompras(resultSet.getInt("idcarritocompras"),resultSet.getDate("fechacompra"), resultSet.getDate("fechaEntrega"),
-						resultSet.getString("lugaentrega"), resultSet.getInt("idstaitocompra"),resultSet.getString("folio"),resultSet.getString("nombrecmprador"));
+				CarritoCompras carritoCompra = new CarritoCompras(resultSet.getInt("idcarritocompras"),
+						resultSet.getDate("fechacompra"), resultSet.getDate("fechaEntrega"),
+						resultSet.getString("lugaentrega"), resultSet.getInt("idstaitocompra"),
+						resultSet.getString("folio"), resultSet.getString("nombrecmprador"));
 				carritoComprasList.add(carritoCompra);
-			} 
+			}
 		} catch (SQLException e) {
 			LOG.error("SQLException", e);
 		} finally {
@@ -67,12 +69,14 @@ public class CarritoComprasDAO {
 			if (insertedRows == 1) {
 				LOG.info("Se ha insertado correctamente el registro" + "[fechaCompra=" + carritoCompras.getFechaCompra()
 						+ "fechaEntrega" + carritoCompras.getFehaEntrega() + "lugarEntrega"
-						+ carritoCompras.getLugarEntrega() + "idStatusCarrito" + carritoCompras.getIdStatus() + "folio" + carritoCompras.getFolio() +"nombrecomprador" + carritoCompras.getNombrecmprador());
+						+ carritoCompras.getLugarEntrega() + "idStatusCarrito" + carritoCompras.getIdStatus() + "folio"
+						+ carritoCompras.getFolio() + "nombrecomprador" + carritoCompras.getNombrecmprador());
 			} else {
 				LOG.info("No se ha insertado correctamente el registro" + "[fechaCompra="
 						+ carritoCompras.getFechaCompra() + "fechaEntrega" + carritoCompras.getFechaCompra()
 						+ "lugarEntrega" + carritoCompras.getLugarEntrega() + "idStatusCarrito"
-						+ carritoCompras.getIdStatus() + "folio" + carritoCompras.getFolio() +"nombrecomprador" + carritoCompras.getNombrecmprador());
+						+ carritoCompras.getIdStatus() + "folio" + carritoCompras.getFolio() + "nombrecomprador"
+						+ carritoCompras.getNombrecmprador());
 			}
 		} catch (SQLException e) {
 			LOG.error("SQLException", e);

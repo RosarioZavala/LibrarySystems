@@ -66,11 +66,4 @@ public class DetalleCarritoCompras {
 				+ precioUnitarioVenta + ", precioUnitarioCompra=" + precioUnitarioCompra + "]";
 	}
 	
-	
-
-	
-
-
-
-	
 }
