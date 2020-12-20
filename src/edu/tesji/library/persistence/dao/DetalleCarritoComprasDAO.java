@@ -17,6 +17,7 @@ public class DetalleCarritoComprasDAO {
 	private ResultSet resultSet;
 	private static final String QUERY_SELECT_ALL_DETALLECARRITOCOMPRAS = "SELECT iddetallecarritocompras,idcarritocompras,idlibro,cantidad,preciounitarioventa,preciounitariocompra FROM detallecarritocompras";
 	private static final String QUERY_INSERT_DETALLECARRITOCOMPRAS = "INSERT INTO detallecarritocompras (idcarritocompras, idlibro,cantidad,preciounitarioventa,preciounitariocompra) values (?,?,?,?,?)";
+	private static final String QUERY_DELETE_DETALLECARRITOCOMPRAS = "DELETE FROM detallecarritocompras where idcarritocompras = '5'"; 
 
 	public List<DetalleCarritoCompras> selectDetalleCarritoCompras() {
 		List<DetalleCarritoCompras> detalleCarritoComprasList = new ArrayList<DetalleCarritoCompras>();

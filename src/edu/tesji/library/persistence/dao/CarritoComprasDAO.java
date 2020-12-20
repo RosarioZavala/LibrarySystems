@@ -18,6 +18,8 @@ public class CarritoComprasDAO {
 	private static final String QUERY_SELECT_ALL_CARRITOCOMPRAS = "SELECT idcarritocompras, fechacompra, fechaentrega"
 			+ ", lugaentrega, idstatuscarrito,folio,nombrecmprador FROM carritocompras";
 	private static final String QUERY_INSERT_CARRITOCOMPRAS = "INSERT INTO carritocompras (fechacompra, fechaentrega, lugaentrega, idstatuscarrito) values (?,?,?,?)";
+	private static final String QUERY_DELET_CARRITOCOMPRAS = "DELETE FROM carritocompras WHERE idcarritocompras = ? ";
+	private static final String QUERY_UPDATE_CARRITOCOMPRAS = "UPDATE carritocompras SET fechacompra  = ? , fechaentrega = ?, lugaentrega = ?, idstatuscarrito = ?,foliocarritocompras = ?, nombrecomprador = ?  WHERE idcarritocompras= ?";
 
 	public List<CarritoCompras> selectCarritoCompras() {
 		List<CarritoCompras> carritoComprasList = new ArrayList<CarritoCompras>();
@@ -91,6 +93,72 @@ public class CarritoComprasDAO {
 			}
 		}
 		return insertedRows;
+	}
+
+	public int deleteCarritoCompras(CarritoCompras carritoCompras) {
+		int deletedRows = -3;
+		Connection connection = null;
+
+		try {
+			DBConnection dbConnection = new DBConnection();
+			connection = dbConnection.getConnection();
+			prepStatement = connection.prepareStatement(QUERY_DELET_CARRITOCOMPRAS);
+			prepStatement.setInt(1, carritoCompras.getIdCarritoCompras());
+
+			deletedRows = prepStatement.executeUpdate();
+
+			if (deletedRows == 1) {
+				LOG.info("Los registros del id" + carritoCompras.getIdCarritoCompras()
+						+ "Se han eliminado correctamente");
+			} else {
+				LOG.info("Los registros del id" + carritoCompras.getIdCarritoCompras()
+						+ "No se han eliminado correctamente");
+			}
+		} catch (SQLException e) {
+			LOG.error("SQLException", e);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					LOG.error("SQLException", e);
+				}
+			}
+		}
+
+		return deletedRows;
+	}
+
+	public int updateCarritoCompras(CarritoCompras carritoCompras) {
+		int updatedRows = -3;
+		Connection connection = null;
+
+		try {
+			DBConnection dbConnection = new DBConnection();
+			connection = dbConnection.getConnection();
+			prepStatement = connection.prepareStatement(QUERY_UPDATE_CARRITOCOMPRAS);
+			prepStatement.setInt(1, carritoCompras.getIdCarritoCompras());
+
+			updatedRows = prepStatement.executeUpdate();
+
+			if (updatedRows == 1) {
+				LOG.info("Los registros " + carritoCompras.toString() + "Han sido actualizados correctamente");
+			} else {
+				LOG.info("Los registros " + carritoCompras.toString() + "Noo han sido actualizados correctamente");
+			}
+		} catch (SQLException e) {
+			LOG.error("SQLException", e);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					LOG.error("SQLException", e);
+				}
+			}
+		}
+
+		return updatedRows;
 	}
 
 }
