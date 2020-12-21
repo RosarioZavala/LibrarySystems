@@ -15,8 +15,8 @@ public class UsuarioDAO {
 	private static final Logger LOG = Logger.getLogger(UsuarioDAO.class);
 	private PreparedStatement prepStatement;
 	private ResultSet resultSet;
-	private static final String QUERY_SELECT_ALL_AUTOR = "SELECT idusuario, nombre, password, status FROM usuario";
-	private static final String QUERY_SELECT_AUTOR = "SELECT idusuario, nombre, password, status FROM usuario"
+	private static final String QUERY_SELECT_ALL_USUARIO = "SELECT idusuario, nombre, password, status FROM usuario";
+	private static final String QUERY_SELECT_USUARIO = "SELECT idusuario, nombre, password, status FROM usuario"
 			+ " WHERE nombre = ? AND password";
 
 	public List<Usuario> selectAllUsuario() {
@@ -26,7 +26,7 @@ public class UsuarioDAO {
 		try {
 			DBConnection dbConnection = new DBConnection();
 			connection = dbConnection.getConnection();
-			prepStatement = connection.prepareStatement(QUERY_SELECT_ALL_AUTOR);
+			prepStatement = connection.prepareStatement(QUERY_SELECT_ALL_USUARIO);
 			resultSet = prepStatement.executeQuery();
 
 			while (resultSet.next()) {
@@ -56,7 +56,7 @@ public class UsuarioDAO {
 		try {
 			DBConnection dbConnection = new DBConnection();
 			connection = dbConnection.getConnection();
-			prepStatement = connection.prepareStatement(QUERY_SELECT_AUTOR);
+			prepStatement = connection.prepareStatement(QUERY_SELECT_USUARIO);
 			prepStatement.setString(1, usuario.getNombre());
 			prepStatement.setString(2, usuario.getPassword());
 			resultSet = prepStatement.executeQuery();
