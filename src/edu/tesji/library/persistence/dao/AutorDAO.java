@@ -16,10 +16,10 @@ public class AutorDAO {
 	private static final Logger LOG = Logger.getLogger(AutorDAO.class);
 	private PreparedStatement prepStatement;
 	private ResultSet resultSet;
-	private static final String QUERY_SELECT_ALL_AUTOR = "SELECT idautor,nombrecompleto,nacionalidad FROM autor";
-	private static final String QUERY_INSERT_AUTOR = "INSERT INTO autor (nombrecompleto, nacionalidad) values (?,?) ";
-	private static final String QUERY_DELETE_AUTOR = "DELETE  autor WHERE idautor =?'";
-	private static final String QUERY_UPDATE_AUTOR = "UPDATE autor SET nombrecompleto = ?, nacionalidad = ? WHERE Idautor=?";
+	private static final String QUERY_SELECT_ALL_AUTOR = "SELECT idautor, claveautor,nombrecompleto,nacionalidad FROM autor";
+	private static final String QUERY_INSERT_AUTOR = "INSERT INTO autor (claveautor,nombrecompleto, nacionalidad) values (?,?,?) ";
+	private static final String QUERY_DELETE_AUTOR = "DELETE  autor WHERE idautor =?";
+	private static final String QUERY_UPDATE_AUTOR = "UPDATE autor SET claveautor,nombrecompleto = ?, nacionalidad = ? WHERE idautor=?";
 
 	public List<Autor> selectAutor() {
 		List<Autor> autorList = new ArrayList<Autor>();
@@ -31,7 +31,7 @@ public class AutorDAO {
 			resultSet = prepStatement.executeQuery();
 
 			while (resultSet.next()) {
-				Autor autor = new Autor(resultSet.getInt("idAutor"), resultSet.getString("nombreCompleto"),
+				Autor autor = new Autor(resultSet.getInt("idAutor"),resultSet.getString("ClaveAutor"), resultSet.getString("nombreCompleto"),
 						resultSet.getString("nacionalidad"));
 				autorList.add(autor);
 			}
@@ -56,16 +56,17 @@ public class AutorDAO {
 			DBConnection dbConnection = new DBConnection();
 			connection = dbConnection.getConnection();
 			prepStatement = connection.prepareStatement(QUERY_INSERT_AUTOR);
-			prepStatement.setString(1, autor.getNombreCompleto());
-			prepStatement.setString(2, autor.getNacionalidad());
+			prepStatement.setString(1, autor.getClaveautor());
+			prepStatement.setString(2, autor.getNombreCompleto());
+			prepStatement.setString(3, autor.getNacionalidad());
 
 			insertedRows = prepStatement.executeUpdate();
 
 			if (insertedRows == 1) {/* Si un registro es afectado pasará a agregarse */
-				LOG.info("Se ha insertado correctamente el registro" + "[nombreCompleto=" + autor.getNombreCompleto()
+				LOG.info("Se ha insertado correctamente los registros" + "[ claveAutor" + autor.getClaveautor() + "nombreCompleto=" + autor.getNombreCompleto()
 						+ ",nacionalidad=" + autor.getNacionalidad() + "]");
 			} else {
-				LOG.info("No se ha insertado el registro" + "[nombreCompleto=" + autor.getNombreCompleto()
+				LOG.info("No se han insertado correctamente los registros" +"[ claveAutor " + autor.getClaveautor() +"nombreCompleto" + autor.getNombreCompleto()
 						+ ", nacionalidad" + autor.getNacionalidad() + "]");
 			}
 		} catch (SQLException e) {
@@ -125,9 +126,9 @@ public class AutorDAO {
 			updatedRows = prepStatement.executeUpdate();
 
 			if (updatedRows == 1) {
-				LOG.info("Se han actualizado correctamente los registros  Nombre Autor " + autorUp.toString());
+				LOG.info("Se han actualizado correctamente los registros  del Autor " + autorUp.toString());
 			} else {
-				LOG.info("No han actualizado correctamente los registros  Nombre Autor " + autorUp.toString());
+				LOG.info("No han actualizado correctamente los registros  del Autor " + autorUp.toString());
 			}
 		} catch (SQLException e) {
 			LOG.error("SQLException", e);

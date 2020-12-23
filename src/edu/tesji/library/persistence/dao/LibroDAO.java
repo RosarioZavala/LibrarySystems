@@ -15,8 +15,8 @@ public class LibroDAO {
 	private static final Logger LOG = Logger.getLogger(LibroDAO.class);
 	private PreparedStatement prepStatement;
 	private ResultSet resultSet;
-	private static final String QUERY_SELECT_ALL_Libro = "SELECT idlibro,isbn,descripcion,paginas,precioventa,preciocompra,inventario,status FROM libro";
-	private static final String QUERY_INSERT_LIBRO = "INSERT INTO libro (isbn,descripcion,paginas,precioventa,preciocompra,inventario,status) VALUES (?,?, ?,?,?,?,?)";
+	private static final String QUERY_SELECT_ALL_Libro = "SELECT idlibro,titulo,isbn,descripcion,paginas,precioventa,preciocompra,inventario,status FROM libro";
+	private static final String QUERY_INSERT_LIBRO = "INSERT INTO libro (titulo,isbn,descripcion,paginas,precioventa,preciocompra,inventario,status) VALUES (?,?, ?,?,?,?,?)";
 
 	public List<Libro> selectLibro() {
 		List<Libro> libroList = new ArrayList<Libro>();
@@ -28,7 +28,7 @@ public class LibroDAO {
 			resultSet = prepStatement.executeQuery();
 
 			while (resultSet.next()) {
-				Libro libro = new Libro(resultSet.getInt("idlibro"), resultSet.getString("isbn"),
+				Libro libro = new Libro(resultSet.getInt("idlibro"),  resultSet.getString("titulo"),resultSet.getString("isbn"),
 						resultSet.getString("descripcion"), resultSet.getString("paginas"),
 						resultSet.getBigDecimal("precioventa"), resultSet.getBigDecimal("preciocompra"),
 						resultSet.getInt("inventario"), resultSet.getBoolean("status"));
@@ -57,22 +57,23 @@ public class LibroDAO {
 			connection = dbConnection.getConnection();
 			prepStatement = connection.prepareStatement(QUERY_INSERT_LIBRO);
 			prepStatement.setString(1, libroIn.getIsbn());
-			prepStatement.setString(2, libroIn.getDescripcion());
-			prepStatement.setString(3, libroIn.getPaginas());
-			prepStatement.setBigDecimal(4, libroIn.getPrecioVenta());
-			prepStatement.setBigDecimal(5, libroIn.getPrecioCompra());
-			prepStatement.setInt(6, libroIn.getInventario());
-			prepStatement.setBoolean(7, libroIn.isStatus());
+			prepStatement.setString(2,libroIn.getTitulo());
+			prepStatement.setString(3, libroIn.getDescripcion());
+			prepStatement.setString(4, libroIn.getPaginas());
+			prepStatement.setBigDecimal(5, libroIn.getPrecioVenta());
+			prepStatement.setBigDecimal(6, libroIn.getPrecioCompra());
+			prepStatement.setInt(7, libroIn.getInventario());
+			prepStatement.setBoolean(8, libroIn.isStatus());
 
 			insertedRows = prepStatement.executeUpdate();
 
 			if (insertedRows == 1) {
-				LOG.info("Se ha registrado correctamente el registro" + "isbn" + libroIn.getIsbn() + "descripción"
+				LOG.info("Se ha registrado correctamente el registro" +"Titulo" + libroIn.getTitulo() + "isbn" + libroIn.getIsbn() + "descripción"
 						+ libroIn.getDescripcion() + "páginas" + libroIn.getPaginas() + "Precio Venta"
 						+ libroIn.getPrecioVenta() + "Precio Compra" + libroIn.getPrecioCompra() + "Inventario"
 						+ libroIn.getInventario() + "status" + libroIn.isStatus());
 			} else {
-				LOG.info("No se ha registrado correctamente el registro" + "isbn" + libroIn.getIsbn() + "descripción"
+				LOG.info("No se ha registrado correctamente el registro" +"Titulo" + libroIn.getTitulo()+ "isbn" + libroIn.getIsbn() + "descripción"
 						+ libroIn.getDescripcion() + "páginas" + libroIn.getPaginas() + "Precio Venta"
 						+ libroIn.getPrecioVenta() + "Precio Compra" + libroIn.getPrecioCompra() + "Inventario"
 						+ libroIn.getInventario() + "status" + libroIn.isStatus());

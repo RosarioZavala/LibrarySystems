@@ -3,23 +3,32 @@ package edu.tesji.library.entities;
 public class Autor {
 	/* Mapeo de atributos de la bd para ser usados en el sistema */
 	private int idautor;
+	private String claveautor;
 	private String nombreCompleto;
 	private String nacionalidad;
-
-	public Autor(int idautor, String nombreCompleto, String nacionalidad) {
+	
+	public Autor(int idautor, String claveautor, String nombreCompleto, String nacionalidad) {
 		super();
 		this.idautor = idautor;
+		this.claveautor = claveautor;
 		this.nombreCompleto = nombreCompleto;
 		this.nacionalidad = nacionalidad;
 	}
 
-	/* Generación de getters y setters(Se devuelve o asigna un valor) */
 	public int getIdautor() {
 		return idautor;
 	}
 
 	public void setIdautor(int idautor) {
 		this.idautor = idautor;
+	}
+
+	public String getClaveautor() {
+		return claveautor;
+	}
+
+	public void setClaveautor(String claveautor) {
+		this.claveautor = claveautor;
 	}
 
 	public String getNombreCompleto() {
@@ -40,8 +49,11 @@ public class Autor {
 
 	@Override
 	public String toString() {
-		return "Author [idautor=" + idautor + ", nombrecompleto=" + nombreCompleto + ", nacionalidad=" + nacionalidad
-				+ "]";
+		return "Autor [idautor=" + idautor + ", claveautor=" + claveautor + ", nombreCompleto=" + nombreCompleto
+				+ ", nacionalidad=" + nacionalidad + "]";
 	}
+	
+	
 
+	
 }
