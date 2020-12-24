@@ -13,8 +13,7 @@ import org.apache.log4j.Logger;
 
 import edu.tesji.library.entities.Usuario;
 import edu.tesji.library.persistence.dao.UsuarioDAO;
-import edu.tesji.sistemas.library.persistence.dao.UserDAO;
-import edu.tesji.sistemas.library.persistence.entities.UserEntity;
+
 
 /**
  * Servlet implementation class LoginController
