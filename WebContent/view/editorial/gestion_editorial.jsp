@@ -10,11 +10,13 @@
 </head>
 <body>
 
+	<jsp:include page="/view/login/menu_admin.jsp" flush="true" />
+
 	<!-- este div es el que nos dará cierto margen  para nuestro formulario. -->
 	<div class="container">
 		<div class="mx-auto" style="width: 450px;">
 			<br>
-			<h2 class="mx-auto" style="text-align: center;">Administrador</h2>
+			<h2 class="mx-auto" style="text-align: center;">Gestión de Editoriales</h2>
 			<br>
 			<form action="login" method="get" id="loginForm" role="form">
 				<div class="mb-3">
@@ -27,9 +29,9 @@
 					<input type="password" class="form-control" id="passwordTXT"
 						placeholder="Escriba su contrase&ntilde;a" required>
 				</div>
-				
+
 				<br>
-				
+
 				<div class="mx-auto" style="text-align: center;">
 					<button type="submit" class="btn btn-info">
 						<span class="glyphicon glyphicon-search"></span> Autenticarse

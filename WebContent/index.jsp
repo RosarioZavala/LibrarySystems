@@ -9,6 +9,8 @@
 <body>
 
 <%--<jsp:forward page="/view/login/login.jsp" />--%>
-<jsp:forward page="/view/menuInicio/menuInicio.jsp" />
+<%-- <jsp:forward page="/view/login/menu_admin.jsp" /> --%>
+<jsp:forward page="/view/autor/gestion_autor.jsp" />
+<%-- <jsp:forward page="/view/menuInicio/menuInicio.jsp" /> --%>
 </body>
 </html>
