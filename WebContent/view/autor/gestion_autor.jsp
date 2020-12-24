@@ -7,6 +7,8 @@
 <script src="js/bootstrap.js"></script>
 <meta charset="ISO-8859-1">
 <title>Library Systems</title>
+<link rel="stylesheet" href="css/bootstrap.css">
+<script src="js/bootstrap.js"></script>
 </head>
 <body>
 
@@ -18,27 +20,20 @@
 			<br>
 			<h2 class="mx-auto" style="text-align: center;">Gestión de Autores</h2>
 			<br>
-			<form action="login" method="get" id="loginForm" role="form">
-				<div class="mb-3">
-					<label for="usuarioTXT" class="form-label">Usuario</label> <input
-						type="text" class="form-control" id="usuarioTXT"
-						placeholder="Escriba su usuario" required>
-				</div>
-				<div class="mb-3">
-					<label for="passwordTXT" class="form-label">Contrase&ntilde;a</label>
-					<input type="password" class="form-control" id="passwordTXT"
-						placeholder="Escriba su contrase&ntilde;a" required>
-				</div>
-
-				<br>
-
-				<div class="mx-auto" style="text-align: center;">
-					<button type="submit" class="btn btn-info">
-						<span class="glyphicon glyphicon-search"></span> Autenticarse
-					</button>
-				</div>
-
-			</form>
+			<ul class="nav flex-column">
+  <li class="nav-item">
+    <a class="nav-link active" href="#">Actualizar Autor</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Eliminar Autor</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Agregar Autor</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Consultar Autor</a>
+  </li>
+</ul>
 
 		</div>
 	</div>
