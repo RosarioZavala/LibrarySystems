@@ -12,12 +12,14 @@
     <script src="js/bootstrap.js"></script>
 
     <div class="container">
-        <h2>Administrador</h2>
+    <Br>     <Br>     <Br>            
+    
+        <h2  style ="margin-left: 40%;" >Administrador</h2><Br>
         <form action="login" method="get" id="loginForm"
             role="form">
            
             <div class="form-group col-xs-5">
-                <label class=form-control-label-for-login">Usuario</label>
+                <label class="form-control-label-for-login">Usuario</label>
                 <input type="text" name="usuarioTXT" id="usuarioTXT"
                     class="form-control-input-for-login" required="true"
                     placeholder="Escriba su usuario" />
@@ -30,9 +32,10 @@
             </div>
             <div class="form-group col-xs-5">
                 <br>
-                <button type="submit" class="btn btn-info">
+                <button type="submit" class="btn btn-info-for-login">
                     <span class="glyphicon glyphicon-search"></span> Autenticarse
                 </button>
+              
             </div>
             
         </form>

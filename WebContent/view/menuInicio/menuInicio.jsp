@@ -1,22 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
+
+<link rel="stylesheet" href="css/bootstrap.css">
+<script src="js/bootstrap.js"></script>
+
 <meta charset="ISO-8859-1">
 <title>Inicio</title>
 </head>
 <body>
-<div class="card"  style="width: 
 
-18rem;" 
- >
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">User</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
+	<div class="container-md">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col"><button type="button"
+							class="btn btn-secondary">UNO</button></th>
+					<th scope="col"><button type="button"
+							class="btn btn-secondary">DOS</button></th>
+					<th scope="col"><button type="button"
+							class="btn btn-secondary">TRES</button></th>
+					<th scope="col"><button type="button"
+							class="btn btn-secondary">CUATRO</button></th>
+				</tr>
+
+			</thead>
+		</table>
+	</div>
 </body>
 </html>
