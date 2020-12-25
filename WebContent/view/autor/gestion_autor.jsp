@@ -20,23 +20,29 @@
 			<br>
 			<h2 class="mx-auto" style="text-align: center;">Gestión de Autores</h2>
 			<br>
-			<ul class="nav flex-column">
-  <li class="nav-item">
-    <a class="nav-link active" href="#">Actualizar Autor</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Eliminar Autor</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Agregar Autor</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled" href="#">Consultar Autor</a>
-  </li>
-</ul>
-
+			
 		</div>
 	</div>
+		<div  style="margin-left: 150px; width: 250px;">
+
+
+	<ul class="nav flex-column">
+  <li class="nav-item">
+    <a class="nav-link " href="#">Actualizar Autor</a> <br>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Eliminar Autor</a> <br>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Agregar Autor</a> <br>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " href="#">Consultar Autor</a>
+  </li>
+</ul>
+	
+
+	
 
 </body>
 
