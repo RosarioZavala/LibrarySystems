@@ -16,15 +16,17 @@ public class EditorialDAO {
 	private static final Logger LOG = Logger.getLogger(EditorialDAO.class);
 	private PreparedStatement prepStatement;
 	private ResultSet resultSet;
-	private static final String QUERY_SELECT_ALL_EDITORIAL = "SELECT ideditorial,nombreeditorial,lugardeimpresion FROM editorial";
+	private static final String QUERY_SELECT_ALL_EDITORIAL = "SELECT ideditorial,nombreeditorial,lugardeimpresion "
+			+ "FROM editorial ORDER BY nombreeditorial ASC";
 	private static final String QUERY_INSERT_EDITORIAL = "INSERT INTO editorial(nombreeditorial, lugardeimpresion) VALUES (?,?)";
 
-	public List<Editorial> selectEditorial() {
+	public List<Editorial> selectAllEditorial() {
 		List<Editorial> editorialList = new ArrayList<Editorial>();
 		Connection connection = null;
 		try {
 			DBConnection dbConnection = new DBConnection();
 			connection = dbConnection.getConnection();
+			LOG.info("### Ejecutando Consulta: " + QUERY_SELECT_ALL_EDITORIAL);
 			prepStatement = connection.prepareStatement(QUERY_SELECT_ALL_EDITORIAL);
 			resultSet = prepStatement.executeQuery();
 

@@ -17,7 +17,7 @@ public class UsuarioDAO {
 	private ResultSet resultSet;
 	private static final String QUERY_SELECT_ALL_USUARIO = "SELECT idusuario, nombre, password, status FROM usuario";
 	private static final String QUERY_SELECT_USUARIO = "SELECT idusuario, nombre, password, status FROM usuario"
-			+ " WHERE nombre = ? AND password";
+			+ " WHERE nombre = ? AND password = ?";
 
 	public List<Usuario> selectAllUsuario() {
 
