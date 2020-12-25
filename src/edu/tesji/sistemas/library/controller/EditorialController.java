@@ -12,9 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import edu.tesji.library.entities.Editorial;
-import edu.tesji.library.entities.Usuario;
 import edu.tesji.library.persistence.dao.EditorialDAO;
-import edu.tesji.library.persistence.dao.UsuarioDAO;
 import edu.tesji.library.utils.SessionAttributes;
 
 
@@ -44,8 +42,10 @@ public class EditorialController extends HttpServlet {
         case SessionAttributes.ACTION_INIT:
 			log.info("##### Cargando catálogo de Editoriales... ");
 			List<Editorial> list = loadEditoriales();
-			request.setAttribute("listEditorial", list);
-			response.sendRedirect("/LibrarySystems/view/editorial/gestion_editorial.jsp");
+			log.info("Número de registros a cargar: " + list.size());
+
+			request.setAttribute("editoriales", list);
+			request.getRequestDispatcher("/view/editorial/gestion_editorial.jsp").forward(request, response);
 			break;
         case SessionAttributes.ACTION_SAVE:
 			log.info("##### Guardando Editorial... ");
@@ -54,8 +54,6 @@ public class EditorialController extends HttpServlet {
 		default:
 			break;
 		}
-        
-
         
     }
 
@@ -73,6 +71,6 @@ public class EditorialController extends HttpServlet {
 		return dao.selectAllEditorial();
 		
 	}
-    
+        
 }
 

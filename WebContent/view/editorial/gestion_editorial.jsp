@@ -24,15 +24,15 @@
 			<br>
 			<form action="login" method="get" id="loginForm" role="form">
 				<div class="mb-3">
-					
-					<label for="editorialSelect" class="form-label">Selecciona Editorial</label> <select
-						id="editorialSelect" name="editorialSelect" class="form-select"
-						aria-label="Default select example">
-						<option value="-1" selected>- Seleccione un valor -</option>
-						<c:forEach var="i" items="${listEditorial}">
-							<option value="${i[0]}">${i[1]} ${i[2]}</option>
+
+					<label for="editorialSelect" class="form-label">Selecciona
+						Editorial</label> <select id="editorialSelect" name="editorialSelect"
+						class="form-select" aria-label="Default select example">
+						<c:forEach  var="editorial" items="${editoriales}">
+							<option value="${editorial.idEditorial}">${editorial.nombreEditorial}</option>
 						</c:forEach>
 					</select>
+					
 				</div>
 
 			</form>
