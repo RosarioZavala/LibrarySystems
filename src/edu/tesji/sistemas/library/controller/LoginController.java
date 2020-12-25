@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 
 import edu.tesji.library.entities.Usuario;
 import edu.tesji.library.persistence.dao.UsuarioDAO;
+import edu.tesji.library.utils.SessionAttributes;
 
 
 /**
@@ -50,8 +51,13 @@ public class LoginController extends HttpServlet {
         if (!userList.isEmpty()) {
             log.info("Credenciales válidas " + usuarioEntity.toString());
             log.info(userList.get(0).toString());
+
+            request.getSession().setAttribute(SessionAttributes.USER_ADMIN_NAME, 
+            		userList.get(0).getNombre());
+            response.sendRedirect("/LibrarySystems/view/login/inicio.jsp");
         } else {
             log.warn("Credenciales inválidas " + usuarioEntity.toString());
+            response.sendRedirect("/LibrarySystems/");
         }
         
     }
