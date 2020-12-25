@@ -17,17 +17,141 @@ public class AutorDAO {
 	private PreparedStatement prepStatement;
 	private ResultSet resultSet;
 	private static final String QUERY_SELECT_ALL_AUTOR = "SELECT idautor, claveautor,nombrecompleto,nacionalidad FROM autor";
+	private static final String QUERY_SELECT_AUTOR_BY_ID = "SELECT idautor, claveautor,nombrecompleto,nacionalidad "
+			+ "FROM autor WHERE idautor = ?";
+	private static final String QUERY_SELECT_AUTOR_BY_CLAVEAUTOR = "SELECT idautor, claveautor,nombrecompleto,nacionalidad "
+			+ "FROM autor WHERE claveautor = ?";
+	private static final String QUERY_SELECT_AUTOR_BY_NOMBRECOMPLETO = "SELECT idautor, claveautor,nombrecompleto,nacionalidad "
+			+ "FROM autor WHERE nombrecompleto LIKE ?";
+	private static final String QUERY_SELECT_AUTOR_BY_NACIONALIDAD = "SELECT idautor, claveautor,nombrecompleto,nacionalidad "
+			+ "FROM autor WHERE nacionalidad LIKE ?";
 	private static final String QUERY_INSERT_AUTOR = "INSERT INTO autor (claveautor,nombrecompleto, nacionalidad) values (?,?,?) ";
 	private static final String QUERY_DELETE_AUTOR = "DELETE  autor WHERE idautor =?";
 	private static final String QUERY_UPDATE_AUTOR = "UPDATE autor SET claveautor,nombrecompleto = ?, nacionalidad = ? WHERE idautor=?";
 
-	public List<Autor> selectAutor() {
+	public List<Autor> selectAllAutor() {
 		List<Autor> autorList = new ArrayList<Autor>();
 		Connection connection = null;
 		try {
 			DBConnection dbConnection = new DBConnection();
 			connection = dbConnection.getConnection();
 			prepStatement = connection.prepareStatement(QUERY_SELECT_ALL_AUTOR);
+			resultSet = prepStatement.executeQuery();
+
+			while (resultSet.next()) {
+				Autor autor = new Autor(resultSet.getInt("idAutor"),resultSet.getString("ClaveAutor"), resultSet.getString("nombreCompleto"),
+						resultSet.getString("nacionalidad"));
+				autorList.add(autor);
+			}
+		} catch (SQLException e) {
+			LOG.error("SQLException", e);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					LOG.error("SQLException", e);
+				}
+			}
+		}
+		return autorList;
+	}
+
+	public List<Autor> findAutorByIdAutor(int idAutor) {
+		List<Autor> autorList = new ArrayList<Autor>();
+		Connection connection = null;
+		try {
+			DBConnection dbConnection = new DBConnection();
+			connection = dbConnection.getConnection();
+			prepStatement = connection.prepareStatement(QUERY_SELECT_AUTOR_BY_ID);
+			prepStatement.setInt(1, idAutor);
+			resultSet = prepStatement.executeQuery();
+
+			while (resultSet.next()) {
+				Autor autor = new Autor(resultSet.getInt("idAutor"),resultSet.getString("ClaveAutor"), resultSet.getString("nombreCompleto"),
+						resultSet.getString("nacionalidad"));
+				autorList.add(autor);
+			}
+		} catch (SQLException e) {
+			LOG.error("SQLException", e);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					LOG.error("SQLException", e);
+				}
+			}
+		}
+		return autorList;
+	}
+
+	public List<Autor> findAutorByClaveAutor(String claveAutor) {
+		List<Autor> autorList = new ArrayList<Autor>();
+		Connection connection = null;
+		try {
+			DBConnection dbConnection = new DBConnection();
+			connection = dbConnection.getConnection();
+			prepStatement = connection.prepareStatement(QUERY_SELECT_AUTOR_BY_CLAVEAUTOR);
+			prepStatement.setString(1, claveAutor);
+			resultSet = prepStatement.executeQuery();
+
+			while (resultSet.next()) {
+				Autor autor = new Autor(resultSet.getInt("idAutor"),resultSet.getString("ClaveAutor"), resultSet.getString("nombreCompleto"),
+						resultSet.getString("nacionalidad"));
+				autorList.add(autor);
+			}
+		} catch (SQLException e) {
+			LOG.error("SQLException", e);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					LOG.error("SQLException", e);
+				}
+			}
+		}
+		return autorList;
+	}
+
+	public List<Autor> findAutorByNombreCompleto(String nombreCompleto) {
+		List<Autor> autorList = new ArrayList<Autor>();
+		Connection connection = null;
+		try {
+			DBConnection dbConnection = new DBConnection();
+			connection = dbConnection.getConnection();
+			prepStatement = connection.prepareStatement(QUERY_SELECT_AUTOR_BY_NOMBRECOMPLETO);
+			prepStatement.setString(1, "%" + nombreCompleto + "%");
+			resultSet = prepStatement.executeQuery();
+
+			while (resultSet.next()) {
+				Autor autor = new Autor(resultSet.getInt("idAutor"),resultSet.getString("ClaveAutor"), resultSet.getString("nombreCompleto"),
+						resultSet.getString("nacionalidad"));
+				autorList.add(autor);
+			}
+		} catch (SQLException e) {
+			LOG.error("SQLException", e);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					LOG.error("SQLException", e);
+				}
+			}
+		}
+		return autorList;
+	}
+
+	public List<Autor> findAutorByNacionalidad(String nacionalidad) {
+		List<Autor> autorList = new ArrayList<Autor>();
+		Connection connection = null;
+		try {
+			DBConnection dbConnection = new DBConnection();
+			connection = dbConnection.getConnection();
+			prepStatement = connection.prepareStatement(QUERY_SELECT_AUTOR_BY_NACIONALIDAD);
+			prepStatement.setString(1, "%" + nacionalidad + "%");
 			resultSet = prepStatement.executeQuery();
 
 			while (resultSet.next()) {
