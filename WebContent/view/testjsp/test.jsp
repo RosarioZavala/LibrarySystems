@@ -45,7 +45,16 @@
 			</div>
 
 			<div class="col-6">
-				<div class="p-3">Custom column padding</div>
+				<div class="p-3">
+					<label for="autorSelect" class="form-label">Otro campo</label> <select
+						id="autorSelect" class="form-select"
+						aria-label="Default select example">
+						<option selected>- Seleccione un valor -</option>
+						<option value="1">One</option>
+						<option value="2">Two</option>
+						<option value="3">Three</option>
+					</select>
+				</div>
 			</div>
 
 		</div>
