@@ -1,5 +1,7 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +14,7 @@
 <body>
 
 	<jsp:include page="/view/login/menu_admin.jsp" flush="true" />
-	
+
 	<!-- este div es el que nos dará cierto margen  para nuestro formulario. -->
 	<div class="container">
 		<div class="mx-auto" style="width: 450px;">
@@ -22,22 +24,15 @@
 			<br>
 			<form action="login" method="get" id="loginForm" role="form">
 				<div class="mb-3">
-					<label for="usuarioTXT" class="form-label">Usuario</label> <input
-						type="text" class="form-control" id="usuarioTXT"
-						placeholder="Escriba su usuario" required>
-				</div>
-				<div class="mb-3">
-					<label for="passwordTXT" class="form-label">Contrase&ntilde;a</label>
-					<input type="password" class="form-control" id="passwordTXT"
-						placeholder="Escriba su contrase&ntilde;a" required>
-				</div>
-
-				<br>
-
-				<div class="mx-auto" style="text-align: center;">
-					<button type="submit" class="btn btn-info">
-						<span class="glyphicon glyphicon-search"></span> Autenticarse
-					</button>
+					
+					<label for="editorialSelect" class="form-label">Selecciona Editorial</label> <select
+						id="editorialSelect" name="editorialSelect" class="form-select"
+						aria-label="Default select example">
+						<option value="-1" selected>- Seleccione un valor -</option>
+						<c:forEach var="i" items="${listEditorial}">
+							<option value="${i[0]}">${i[1]} ${i[2]}</option>
+						</c:forEach>
+					</select>
 				</div>
 
 			</form>
