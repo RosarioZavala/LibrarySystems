@@ -23,19 +23,137 @@
 
 		</div>
 	</div>
-	<div style="margin-left: 150px; width: 250px;">
+	
+	
+		
+		<div class="container overflow-hidden">
+		<div class="row gy-5">
+			<div class="col-7">
+				<div class="p-3">
+					<label for="usuarioTXT" class="form-label">Clave Autor</label> <input
+						type="text" class="form-control" id="usuarioTXT"
+						placeholder="Por ejemplo: CURP, No. de Ciudadano" required>
+				</div>
+			</div>
+
+		
+
+			<div class="col-4">
+				<div class="p-3" >
+					<label for="nacionalidadTXT" class="form-label">Nacionalidad</label> <input
+						type="text" class="form-control" id="nacionalidadTXT"
+						placeholder="Ejemplo: México" required>
+				</div>
+			</div>
+			
+
+	<div class="col-7"  style="margin-top: 5px">
+				<div class="p-3">
+					<label for="nombreTXT" class="form-label">Nombre Completo
+						del Autor</label> <input type="text" class="form-control" id="nombreTXT"
+						placeholder="Nombre Completo del autor" required>
+				</div>
+			</div>
+			
+			<div class="col-12">
+
+				<table class="table table-hover">
+
+					<thead>
+						<tr>
 
 
-		<ul class="nav flex-column">
-			<li class="nav-item"><a class="nav-link " href="#">Actualizar
-					Autor</a> <br></li>
-			<li class="nav-item"><a class="nav-link" href="#">Eliminar
-					Autor</a> <br></li>
-			<li class="nav-item"><a class="nav-link" href="#">Agregar
-					Autor</a> <br></li>
-			<li class="nav-item"><a class="nav-link " href="#">Consultar
-					Autor</a></li>
-		</ul>
+							<th scope="col">Clave Autor</th>
+							<th scope="col">Nombre Completo Autor</th>
+							<th scope="col">Nacionalidad</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row"></th>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<th scope="row"></th>
+							<td></td>
+							<td></td>
+
+						</tr>
+						<tr>
+							<th scope="row"></th>
+							<td></td>
+							<td></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			</div>
+			</div>
+			
+			
+					<div class="container overflow-hidden">
+		<div class="row gy-5">
+
+			<div class="col-2" >
+				<div class="p-3">
+
+					<button id="btnLimpiar" type="submit" class="btn btn-info">
+						<span class="glyphicon glyphicon-search"></span> Limpiar
+					</button>
+
+				</div>
+
+			</div>
+
+			<div class="col-2">
+				<div class="p-3">
+
+					<button id="btnEliminar" type="submit" class="btn btn-info">
+						<span class="glyphicon glyphicon-search"></span> Eliminar
+					</button>
+
+				</div>
+
+			</div>
+
+
+			<div class="col-2" style="margin-left: 5px">
+				<div class="p-3">
+
+					<button id="btnAgregar" type="submit" class="btn btn-info">
+						<span class="glyphicon glyphicon-search"></span> Agregar
+					</button>
+
+				</div>
+
+			</div>
+
+
+			<div class="col-2" style="margin-left: 5px">
+				<div class="p-3">
+					<button id="btnActualizar" type="submit" class="btn btn-info">
+						<span class="glyphicon glyphicon-search"></span> Actualizar
+					</button>
+				</div>
+
+			</div>
+
+			<div class="col-2" style="margin-left: 18px">
+				<div class="p-3">
+					<button id="btnConsultar" type="submit" class="btn btn-info">
+						<span class="glyphicon glyphicon-search"></span> Consultar
+					</button>
+				</div>
+
+			</div>
+			
+		</div>
+	</div>
+
+
 </body>
 
 </html>
