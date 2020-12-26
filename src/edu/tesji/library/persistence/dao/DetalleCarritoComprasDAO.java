@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import edu.tesji.library.entities.Autor;
 import edu.tesji.library.entities.DetalleCarritoCompras;
 
 public class DetalleCarritoComprasDAO {

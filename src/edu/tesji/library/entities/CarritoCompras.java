@@ -1,6 +1,7 @@
 package edu.tesji.library.entities;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarritoCompras {
@@ -10,23 +11,23 @@ public class CarritoCompras {
 	private Date fechaCompra;
 	private Date fehaEntrega;
 	private String lugarEntrega;
-	private int idStatus;
+	private StatusCarritoCompra status;
 	private String folio;
 	private String nombrecmprador;
 	private List<DetalleCarritoCompras> detalleCCLis;
 
-	public CarritoCompras(int idCarritoCompras, Date fechaCompra, Date fehaEntrega, String lugarEntrega, int idStatus,
-			String folio, String nombrecmprador) {
+	public CarritoCompras(int idCarritoCompras, Date fechaCompra, Date fehaEntrega, String lugarEntrega
+			, StatusCarritoCompra status, String folio, String nombrecmprador) {
 		super();
 
 		this.idCarritoCompras = idCarritoCompras;
 		this.fechaCompra = fechaCompra;
 		this.fehaEntrega = fehaEntrega;
 		this.lugarEntrega = lugarEntrega;
-		this.idStatus = idStatus;
+		this.setStatus(status);
 		this.folio = folio;
 		this.nombrecmprador = nombrecmprador;
-		this.detalleCCLis = detalleCCLis;
+		this.detalleCCLis = new ArrayList<DetalleCarritoCompras>();
 	}
 
 	public int getIdCarritoCompras() {
@@ -61,14 +62,6 @@ public class CarritoCompras {
 		this.lugarEntrega = lugarEntrega;
 	}
 
-	public int getIdStatus() {
-		return idStatus;
-	}
-
-	public void setIdStatus(int idStatus) {
-		this.idStatus = idStatus;
-	}
-
 	public String getFolio() {
 		return folio;
 	}
@@ -93,10 +86,18 @@ public class CarritoCompras {
 		this.detalleCCLis = detalleCCLis;
 	}
 
+	public StatusCarritoCompra getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusCarritoCompra status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "CarritoCompras [idCarritoCompras=" + idCarritoCompras + ", fechaCompra=" + fechaCompra
-				+ ", fehaEntrega=" + fehaEntrega + ", lugarEntrega=" + lugarEntrega + ", idStatus=" + idStatus
+				+ ", fehaEntrega=" + fehaEntrega + ", lugarEntrega=" + lugarEntrega + ", status=" + status
 				+ ", folio=" + folio + ", nombrecmprador=" + nombrecmprador + ", detalleCCLis=" + detalleCCLis + "]";
 	}
 
