@@ -14,10 +14,10 @@
 <body>
 	<jsp:include page="/view/login/menu_admin.jsp" flush="true" />
 	<br>
-	<br>
+
 	<h2 class="mx-auto" style="text-align: center;">Gestión de Libros</h2>
 	<br>
-	<br>
+	
 	<div class="container overflow-hidden">
 		<div class="row gy-5">
 			<div class="col-6">
@@ -36,7 +36,7 @@
 				</div>
 			</div>
 
-			<div class="col-6">
+			<div class="col-6" style="margin-top: 20px">
 				<div class="p-3">
 					<label for="descripcionTXT" class="form-label">Ingrese una
 						descripción del libro</label> <input type="text" class="form-control"
@@ -44,7 +44,7 @@
 						placeholder="Ejemplo: Encuadernación de tapa blanda..." required>
 				</div>
 			</div>
-			<div class="col-3">
+			<div class="col-3" style="margin-top: 20px">
 				<div class="p-3">
 					<label for="numeroPaginasTXT" class="form-label">Número de
 						Páginas</label> <input type="text" class="form-control"
@@ -53,7 +53,7 @@
 			</div>
 
 
-			<div class="col-3">
+			<div class="col-3" style="margin-top: 20px">
 				<div class="p-3">
 					<label for="inventarioTXT" class="form-label">Inventario</label> <input
 						type="text" class="form-control" id="inventarioTXT"
@@ -62,7 +62,7 @@
 			</div>
 
 
-			<div class="col-6">
+			<div class="col-6" style="margin-top: 20px">
 				<div class="p-3">
 					<label for="precioVentaTXT" class="form-label">Precio Venta</label>
 					<input type="text" class="form-control" id="precioVentaTXT"
@@ -73,7 +73,7 @@
 
 
 			</div>
-			<div class="col-6">
+			<div class="col-6" style="margin-top: 20px">
 				<div class="p-3">
 					<label for="precioComprasTXT" class="form-label">Precio
 						Compra</label> <input type="text" class="form-control"
@@ -82,7 +82,7 @@
 			</div>
 
 
-			<div class="col-6">
+			<div class="col-6" style="margin-top: 20px">
 				<div class="p-3">
 					<label for="autorCMB" class="form-label">Autor</label> <select
 						class="form-select" aria-label="Default select example"
@@ -97,7 +97,7 @@
 
 
 
-			<div class="col-6">
+			<div class="col-6" style="margin-top: 20px">
 				<div class="p-3">
 					<label for="editorialCMB" class="form-label">Editorial</label> <select
 						id="editorialCMB" class="form-select"

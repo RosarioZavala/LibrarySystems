@@ -7,7 +7,7 @@
 	href="http://127.0.0.1:8080/LibrarySystems/css/bootstrap.css">
 <script src="http://127.0.0.1:8080/LibrarySystems/js/bootstrap.js"></script>
 <meta charset="ISO-8859-1">
-<title>Library Systems</title>
+<title>Gestión  de Autores</title>
 </head>
 <body>
 
