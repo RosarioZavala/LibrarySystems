@@ -16,6 +16,8 @@ public class DetalleCarritoComprasDAO {
 	private PreparedStatement prepStatement;
 	private ResultSet resultSet;
 	private static final String QUERY_SELECT_ALL_DETALLECARRITOCOMPRAS = "SELECT iddetallecarritocompras,idcarritocompras,idlibro,cantidad,preciounitarioventa,preciounitariocompra FROM detallecarritocompras";
+	private static final String QUERY_SELECT_DETALLECARRITOCOMPRAS_BY_IDCARRITO = "SELECT iddetallecarritocompras,idcarritocompras,idlibro,cantidad,preciounitarioventa,preciounitariocompra"
+			+ " FROM detallecarritocompras WHERE idcarritocompras = ?";
 	private static final String QUERY_INSERT_DETALLECARRITOCOMPRAS = "INSERT INTO detallecarritocompras (idcarritocompras, idlibro,cantidad,preciounitarioventa,preciounitariocompra) values (?,?,?,?,?)";
 	private static final String QUERY_DELETE_DETALLECARRITOCOMPRAS = "DELETE FROM detallecarritocompras where idcarritocompras = '5'";
 	private static final String QUERY_UPDATE_DETALLE_CARRITOCOMPRAS = "UPDATE detallecarritocompras SET idcarritocompras = ?, idlibro = ?, cantidad = ?, preciounitarioventa = ? ,preciounitariocompra = ? WHERE iddetallecarritocompras= ?";
@@ -27,6 +29,38 @@ public class DetalleCarritoComprasDAO {
 			DBConnection dbConnection = new DBConnection();
 			connection = dbConnection.getConnection();
 			prepStatement = connection.prepareStatement(QUERY_SELECT_ALL_DETALLECARRITOCOMPRAS);
+			resultSet = prepStatement.executeQuery();
+
+			while (resultSet.next()) {
+				DetalleCarritoCompras detalleCarritoCompras = new DetalleCarritoCompras(
+						resultSet.getInt("iddetallecarritocompras"), resultSet.getInt("idcarritocompras"),
+						resultSet.getInt("idlibro"), resultSet.getInt("cantidad"),
+						resultSet.getBigDecimal("preciounitarioventa"),
+						resultSet.getBigDecimal("preciounitariocompra"));
+				detalleCarritoComprasList.add(detalleCarritoCompras);
+			}
+		} catch (SQLException e) {
+			LOG.error("SQLException", e);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					LOG.error("SQLException", e);
+				}
+			}
+		}
+		return detalleCarritoComprasList;
+	}
+
+	public List<DetalleCarritoCompras> selectDetalleCarritoComprasByIdCarrito(int idCarrito) {
+		List<DetalleCarritoCompras> detalleCarritoComprasList = new ArrayList<DetalleCarritoCompras>();
+		Connection connection = null;
+		try {
+			DBConnection dbConnection = new DBConnection();
+			connection = dbConnection.getConnection();
+			prepStatement = connection.prepareStatement(QUERY_SELECT_DETALLECARRITOCOMPRAS_BY_IDCARRITO);
+			prepStatement.setInt(1, idCarrito);
 			resultSet = prepStatement.executeQuery();
 
 			while (resultSet.next()) {
