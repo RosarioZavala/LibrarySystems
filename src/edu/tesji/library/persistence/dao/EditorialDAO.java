@@ -17,7 +17,13 @@ public class EditorialDAO {
 	private PreparedStatement prepStatement;
 	private ResultSet resultSet;
 	private static final String QUERY_SELECT_ALL_EDITORIAL = "SELECT ideditorial,nombreeditorial,lugardeimpresion "
-			+ "FROM editorial ORDER BY nombreeditorial ASC";
+			+ " FROM editorial ORDER BY nombreeditorial ASC";
+	private static final String QUERY_SELECT_EDITORIAL_BY_ID = "SELECT ideditorial,nombreeditorial,lugardeimpresion "
+			+ " FROM editorial WHERE ideditorial = ? ORDER BY nombreeditorial ASC";
+	private static final String QUERY_SELECT_EDITORIAL_BY_NOMBREEDITORIAL = "SELECT ideditorial,nombreeditorial,lugardeimpresion "
+			+ " FROM editorial WHERE nombreeditorial LIKE ? ORDER BY nombreeditorial ASC";
+	private static final String QUERY_SELECT_EDITORIAL_BY_LUGARIMPRESION = "SELECT ideditorial,nombreeditorial,lugardeimpresion "
+			+ " FROM editorial WHERE lugardeimpresion LIKE ? ORDER BY nombreeditorial ASC";
 	private static final String QUERY_INSERT_EDITORIAL = "INSERT INTO editorial(nombreeditorial, lugardeimpresion) VALUES (?,?)";
 
 	public List<Editorial> selectAllEditorial() {
@@ -28,6 +34,96 @@ public class EditorialDAO {
 			connection = dbConnection.getConnection();
 			LOG.info("### Ejecutando Consulta: " + QUERY_SELECT_ALL_EDITORIAL);
 			prepStatement = connection.prepareStatement(QUERY_SELECT_ALL_EDITORIAL);
+			resultSet = prepStatement.executeQuery();
+
+			while (resultSet.next()) {
+				Editorial editorial = new Editorial(resultSet.getInt("ideditorial"),
+						resultSet.getString("nombreeditorial"), resultSet.getString("lugardeimpresion"));
+				editorialList.add(editorial);
+			}
+		} catch (SQLException e) {
+			LOG.error("SQLException", e);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					LOG.error("SQLException", e);
+				}
+			}
+		}
+		return editorialList;
+	}
+
+	public List<Editorial> selectEditorialById(int idEditorial) {
+		List<Editorial> editorialList = new ArrayList<Editorial>();
+		Connection connection = null;
+		try {
+			DBConnection dbConnection = new DBConnection();
+			connection = dbConnection.getConnection();
+			LOG.info("### Ejecutando Consulta: " + QUERY_SELECT_EDITORIAL_BY_ID);
+			prepStatement = connection.prepareStatement(QUERY_SELECT_EDITORIAL_BY_ID);
+			prepStatement.setInt(1, idEditorial);
+			resultSet = prepStatement.executeQuery();
+
+			while (resultSet.next()) {
+				Editorial editorial = new Editorial(resultSet.getInt("ideditorial"),
+						resultSet.getString("nombreeditorial"), resultSet.getString("lugardeimpresion"));
+				editorialList.add(editorial);
+			}
+		} catch (SQLException e) {
+			LOG.error("SQLException", e);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					LOG.error("SQLException", e);
+				}
+			}
+		}
+		return editorialList;
+	}
+
+	public List<Editorial> selectEditorialByNombreEditorial(String nombreEditorial) {
+		List<Editorial> editorialList = new ArrayList<Editorial>();
+		Connection connection = null;
+		try {
+			DBConnection dbConnection = new DBConnection();
+			connection = dbConnection.getConnection();
+			LOG.info("### Ejecutando Consulta: " + QUERY_SELECT_EDITORIAL_BY_NOMBREEDITORIAL);
+			prepStatement = connection.prepareStatement(QUERY_SELECT_EDITORIAL_BY_NOMBREEDITORIAL);
+			prepStatement.setString(1, "%" + nombreEditorial + "%");
+			resultSet = prepStatement.executeQuery();
+
+			while (resultSet.next()) {
+				Editorial editorial = new Editorial(resultSet.getInt("ideditorial"),
+						resultSet.getString("nombreeditorial"), resultSet.getString("lugardeimpresion"));
+				editorialList.add(editorial);
+			}
+		} catch (SQLException e) {
+			LOG.error("SQLException", e);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					LOG.error("SQLException", e);
+				}
+			}
+		}
+		return editorialList;
+	}
+
+	public List<Editorial> selectEditorialByLugarImpresion(String lugarImpresion) {
+		List<Editorial> editorialList = new ArrayList<Editorial>();
+		Connection connection = null;
+		try {
+			DBConnection dbConnection = new DBConnection();
+			connection = dbConnection.getConnection();
+			LOG.info("### Ejecutando Consulta: " + QUERY_SELECT_EDITORIAL_BY_LUGARIMPRESION);
+			prepStatement = connection.prepareStatement(QUERY_SELECT_EDITORIAL_BY_LUGARIMPRESION);
+			prepStatement.setString(1, "%" + lugarImpresion + "%");
 			resultSet = prepStatement.executeQuery();
 
 			while (resultSet.next()) {
