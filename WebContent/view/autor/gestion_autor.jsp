@@ -7,7 +7,7 @@
 	href="http://127.0.0.1:8080/LibrarySystems/css/bootstrap.css">
 <script src="http://127.0.0.1:8080/LibrarySystems/js/bootstrap.js"></script>
 <meta charset="ISO-8859-1">
-<title>Gestión  de Autores</title>
+<title>Gestión de Autores</title>
 </head>
 <body>
 
@@ -23,10 +23,10 @@
 
 		</div>
 	</div>
-	
-	
-		
-		<div class="container overflow-hidden">
+
+
+
+	<div class="container overflow-hidden">
 		<div class="row gy-5">
 			<div class="col-7">
 				<div class="p-3">
@@ -36,25 +36,25 @@
 				</div>
 			</div>
 
-		
+
 
 			<div class="col-4">
-				<div class="p-3" >
-					<label for="nacionalidadTXT" class="form-label">Nacionalidad</label> <input
-						type="text" class="form-control" id="nacionalidadTXT"
+				<div class="p-3">
+					<label for="nacionalidadTXT" class="form-label">Nacionalidad</label>
+					<input type="text" class="form-control" id="nacionalidadTXT"
 						placeholder="Ejemplo: México" required>
 				</div>
 			</div>
-			
 
-	<div class="col-7"  style="margin-top: 5px">
+
+			<div class="col-7" style="margin-top: 5px">
 				<div class="p-3">
 					<label for="nombreTXT" class="form-label">Nombre Completo
 						del Autor</label> <input type="text" class="form-control" id="nombreTXT"
 						placeholder="Nombre Completo del autor" required>
 				</div>
 			</div>
-			
+
 			<div class="col-12">
 
 				<table class="table table-hover">
@@ -90,18 +90,18 @@
 					</tbody>
 				</table>
 			</div>
-			</div>
-			</div>
-			
-			
-					<div class="container overflow-hidden">
+		</div>
+	</div>
+
+
+	<div class="container overflow-hidden">
 		<div class="row gy-5">
 
-			<div class="col-2" >
+			<div class="col-2">
 				<div class="p-3">
 
 					<button id="btnLimpiar" type="submit" class="btn btn-info">
-						<span class="glyphicon glyphicon-search"></span> Limpiar
+						<span class="glyphicon glyphicon-search"></span> Consultar
 					</button>
 
 				</div>
@@ -112,18 +112,6 @@
 				<div class="p-3">
 
 					<button id="btnEliminar" type="submit" class="btn btn-info">
-						<span class="glyphicon glyphicon-search"></span> Eliminar
-					</button>
-
-				</div>
-
-			</div>
-
-
-			<div class="col-2" style="margin-left: 5px">
-				<div class="p-3">
-
-					<button id="btnAgregar" type="submit" class="btn btn-info">
 						<span class="glyphicon glyphicon-search"></span> Agregar
 					</button>
 
@@ -132,24 +120,36 @@
 			</div>
 
 
-			<div class="col-2" style="margin-left: 5px">
+			<div class="col-2">
 				<div class="p-3">
-					<button id="btnActualizar" type="submit" class="btn btn-info">
+
+					<button id="btnAgregar" type="submit" class="btn btn-info">
 						<span class="glyphicon glyphicon-search"></span> Actualizar
 					</button>
+
 				</div>
 
 			</div>
 
-			<div class="col-2" style="margin-left: 18px">
+
+			<div class="col-2">
 				<div class="p-3">
-					<button id="btnConsultar" type="submit" class="btn btn-info">
-						<span class="glyphicon glyphicon-search"></span> Consultar
+					<button id="btnActualizar" type="submit" class="btn btn-info">
+						<span class="glyphicon glyphicon-search"></span> Eliminar
 					</button>
 				</div>
 
 			</div>
-			
+
+			<div class="col-2">
+				<div class="p-3">
+					<button id="btnConsultar" type="submit" class="btn btn-info">
+						<span class="glyphicon glyphicon-search"></span> Limpiar
+					</button>
+				</div>
+
+			</div>
+
 		</div>
 	</div>
 

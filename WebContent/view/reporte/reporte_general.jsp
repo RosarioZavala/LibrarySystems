@@ -101,7 +101,7 @@
 				<div class="p-3">
 					<label for="precioVentaTXT" class="form-label">Total Precio
 						Venta:</label> <input type="text" class="form-control" id="precioVentaTXT"
-						required>
+						required readonly="readonly">
 				</div>
 
 			</div>

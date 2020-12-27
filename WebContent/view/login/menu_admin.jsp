@@ -6,7 +6,7 @@
 			href="http://127.0.0.1:8080/LibrarySystems/view/autor/gestion_autor.jsp">Gestionar
 				Autores</a></li>
 		<li class="nav-item"><a class="nav-link"
-			href="http://127.0.0.1:8080/LibrarySystems/view/editorial/gestion_editorial.jsp">Gestionar
+			href="http://127.0.0.1:8080/LibrarySystems/editorial?action=init">Gestionar
 				Editoriales</a></li>
 		<li class="nav-item"><a class="nav-link"
 			href="http://127.0.0.1:8080/LibrarySystems/view/libros/gestion_libros.jsp">Gestionar
