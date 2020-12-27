@@ -15,7 +15,11 @@ public class LibroAutorDAO {
 	private static final Logger LOG = Logger.getLogger(LibroAutorDAO.class);
 	private PreparedStatement prepStatement;
 	private ResultSet resultSet;
-	private static final String QUERY_SELECT_LIBROAUTOR = "SELECT idlibro, idautor FROM libroautor";
+	private static final String QUERY_SELECT_ALL_LIBROAUTOR = "SELECT idlibro, idautor FROM libroautor";
+	private static final String QUERY_SELECT_LIBROAUTOR_BY_IDLIBRO = "SELECT idlibro, idautor FROM libroautor"
+			+ " WHERE idlibro = ? ";
+	private static final String QUERY_SELECT_LIBROAUTOR_BY_IDAUTOR = "SELECT idlibro, idautor FROM libroautor"
+			+ " WHERE idautor = ? ";
 	private static final String QUERY_INSERT_LIBROAUTOR = "INSERT INTO libroautor(idlibro,idautor) VALUES (?,?)";
 
 	public List<LibroAutor> selectLibroAutor() {
@@ -24,7 +28,65 @@ public class LibroAutorDAO {
 		try {
 			DBConnection dbConnection = new DBConnection();
 			connection = dbConnection.getConnection();
-			prepStatement = connection.prepareStatement(QUERY_SELECT_LIBROAUTOR);
+			prepStatement = connection.prepareStatement(QUERY_SELECT_ALL_LIBROAUTOR);
+			resultSet = prepStatement.executeQuery();
+
+			while (resultSet.next()) {
+				LibroAutor libroAutor = new LibroAutor(resultSet.getInt("idlibro"), resultSet.getInt("idautor"));
+				libroAutorList.add(libroAutor);
+			}
+		} catch (SQLException e) {
+			LOG.error("SQLException", e);
+
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					LOG.error("SQLException", e);
+				}
+			}
+		}
+		return libroAutorList;
+	}
+
+	public List<LibroAutor> selectLibroAutorByIdLibro(int idLibro) {
+		List<LibroAutor> libroAutorList = new ArrayList<LibroAutor>();
+		Connection connection = null;
+		try {
+			DBConnection dbConnection = new DBConnection();
+			connection = dbConnection.getConnection();
+			prepStatement = connection.prepareStatement(QUERY_SELECT_LIBROAUTOR_BY_IDLIBRO);
+			prepStatement.setInt(1, idLibro);
+			resultSet = prepStatement.executeQuery();
+
+			while (resultSet.next()) {
+				LibroAutor libroAutor = new LibroAutor(resultSet.getInt("idlibro"), resultSet.getInt("idautor"));
+				libroAutorList.add(libroAutor);
+			}
+		} catch (SQLException e) {
+			LOG.error("SQLException", e);
+
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					LOG.error("SQLException", e);
+				}
+			}
+		}
+		return libroAutorList;
+	}
+
+	public List<LibroAutor> selectLibroAutorByIdAutor(int idAutor) {
+		List<LibroAutor> libroAutorList = new ArrayList<LibroAutor>();
+		Connection connection = null;
+		try {
+			DBConnection dbConnection = new DBConnection();
+			connection = dbConnection.getConnection();
+			prepStatement = connection.prepareStatement(QUERY_SELECT_LIBROAUTOR_BY_IDAUTOR);
+			prepStatement.setInt(1, idAutor);
 			resultSet = prepStatement.executeQuery();
 
 			while (resultSet.next()) {
