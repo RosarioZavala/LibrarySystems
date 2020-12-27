@@ -23,6 +23,7 @@ public class LibroEditorialDAO {
 		Connection connection = null;
 		try {
 			DBConnection dbConnection = new DBConnection();
+			connection = dbConnection.getConnection();
 			prepStatement = connection.prepareStatement(QUERY_SELECT_ALL_LIBROEDITORIAL);
 			resultSet = prepStatement.executeQuery();
 
