@@ -22,7 +22,7 @@ public class LibroDAO {
 	private static final String QUERY_INSERT_LIBRO = "INSERT INTO libro (titulo,isbn,descripcion,paginas,precioventa"
 			+ ",preciocompra,inventario,status) VALUES (?,?, ?,?,?,?,?)";
 
-	public List<Libro> selectLibro() {
+	public List<Libro> selectAllLibros() {
 		List<Libro> libroList = new ArrayList<Libro>();
 		Connection connection = null;
 		try {
@@ -114,39 +114,33 @@ public class LibroDAO {
 		return querySelectLibroByFilters;
 	}
 
-	private String buildFilters(Libro libroToFind) throws SQLException {
+	private void buildFilters(Libro libroToFind) throws SQLException {
 		if (libroToFind == null) {
-			return querySelectLibroByFilters;
+			return ;
 		}
 		
 		int counter = 1;
 		
 		if (libroToFind.getIdLibro() > 0) {
-			querySelectLibroByFilters += " AND idlibro = ?";
 			prepStatement.setInt(counter++, libroToFind.getIdLibro());
 		}
 
 		if (libroToFind.getIsbn() != null && !libroToFind.getIsbn().trim().isEmpty()) {
-			querySelectLibroByFilters += " AND isbn = ?";
 			prepStatement.setString(counter++, libroToFind.getIsbn());
 		}
 
 		if (libroToFind.getDescripcion() != null && !libroToFind.getDescripcion().trim().isEmpty()) {
-			querySelectLibroByFilters += " AND descripcion LIKE ?";
 			prepStatement.setString(counter++, "%" + libroToFind.getDescripcion() + "%");
 		}
 
 		if (libroToFind.getPaginas() != null && !libroToFind.getPaginas().trim().isEmpty()) {
-			querySelectLibroByFilters += " AND paginas = ?";
 			prepStatement.setString(counter++, libroToFind.getPaginas());
 		}
 
 		if (libroToFind.getTitulo() != null && !libroToFind.getTitulo().trim().isEmpty()) {
-			querySelectLibroByFilters += " AND titulo LIKE ?";
 			prepStatement.setString(counter++, "%" + libroToFind.getTitulo() + "%");
 		}
 		
-		return querySelectLibroByFilters;
 	}
 
 	public int insertLibro(Libro libroIn) {
