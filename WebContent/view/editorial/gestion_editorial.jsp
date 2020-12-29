@@ -30,7 +30,7 @@
 				<div class="p-3">
 					<label for="nombreEditorialTXT" class="form-label">Nombre
 						Editorial</label> <input type="text" class="form-control"
-						id="nombreEditorialTXT" placeholder="Por ejemplo:Planeta Verde"
+						id="nombreEditorialTXT" placeholder="Por ejemplo: Planeta Verde"
 						required>
 				</div>
 			</div>
@@ -41,7 +41,7 @@
 				<div class="p-3">
 					<label for="lugarImpresiónTXT" class="form-label">Lugar
 						impresión</label> <input type="text" class="form-control"
-						id="lugarImpresiónTXT" placeholder="Ejemplo: México" required>
+						id="lugarImpresiónTXT" placeholder="Por ejemplo: México" required>
 				</div>
 			</div>
 
@@ -85,31 +85,16 @@
 	</div>
 	<div class="container overflow-hidden">
 		<div class="row gy-5">
-
-			<div class="col-2">
+		
+			<div class="col-2" style="margin-left: 18px">
 				<div class="p-3">
-
-					<button id="btnLimpiarEd" type="submit" class="btn btn-info">
-						<span class="glyphicon glyphicon-search"></span> Limpiar
+					<button id="btnConsultarEd" type="submit" class="btn btn-info">
+						<span class="glyphicon glyphicon-search"></span> Consultar
 					</button>
-
 				</div>
 
 			</div>
-
-			<div class="col-2">
-				<div class="p-3">
-
-					<button id="btnEliminarEd" type="submit" class="btn btn-info">
-						<span class="glyphicon glyphicon-search"></span> Eliminar
-					</button>
-
-				</div>
-
-			</div>
-
-
-			<div class="col-2" style="margin-left: 5px">
+	<div class="col-2" style="margin-left: 5px">
 				<div class="p-3">
 
 					<button id="btnAgregarEd" type="submit" class="btn btn-info">
@@ -128,15 +113,20 @@
 				</div>
 
 			</div>
-
-			<div class="col-2" style="margin-left: 18px">
+			<div class="col-2">
 				<div class="p-3">
-					<button id="btnConsultarEd" type="submit" class="btn btn-info">
-						<span class="glyphicon glyphicon-search"></span> Consultar
+
+					<button id="btnLimpiarEd" type="submit" class="btn btn-info">
+						<span class="glyphicon glyphicon-search"></span> Limpiar
 					</button>
+
 				</div>
 
 			</div>
+
+		
+
+		
 
 		</div>
 	</div>

@@ -27,7 +27,7 @@ public class AutorDAO {
 			+ "FROM autor WHERE nacionalidad LIKE ?";
 	private static final String QUERY_INSERT_AUTOR = "INSERT INTO autor (claveautor,nombrecompleto, nacionalidad) values (?,?,?) ";
 	private static final String QUERY_DELETE_AUTOR = "DELETE  autor WHERE idautor =?";
-	private static final String QUERY_UPDATE_AUTOR = "UPDATE autor SET claveautor,nombrecompleto = ?, nacionalidad = ? WHERE idautor=?";
+	private static final String QUERY_UPDATE_AUTOR = "UPDATE autor SET claveautor =?,nombrecompleto = ?, nacionalidad = ? WHERE idautor=?";
 
 	public List<Autor> selectAllAutor() {
 		List<Autor> autorList = new ArrayList<Autor>();
@@ -187,10 +187,10 @@ public class AutorDAO {
 			insertedRows = prepStatement.executeUpdate();
 
 			if (insertedRows == 1) {/* Si un registro es afectado pasará a agregarse */
-				LOG.info("Se ha insertado correctamente los registros" + "[ claveAutor" + autor.getClaveautor() + "nombreCompleto=" + autor.getNombreCompleto()
+				LOG.info("Se ha insertado el registro" + "[ claveAutor" + autor.getClaveautor() + "nombreCompleto=" + autor.getNombreCompleto()
 						+ ",nacionalidad=" + autor.getNacionalidad() + "]");
 			} else {
-				LOG.info("No se han insertado correctamente los registros" +"[ claveAutor " + autor.getClaveautor() +"nombreCompleto" + autor.getNombreCompleto()
+				LOG.info("No se han insertado correctamente el registro" +"[ claveAutor " + autor.getClaveautor() +"nombreCompleto" + autor.getNombreCompleto()
 						+ ", nacionalidad" + autor.getNacionalidad() + "]");
 			}
 		} catch (SQLException e) {
@@ -219,9 +219,9 @@ public class AutorDAO {
 			deletedRows = prepStatement.executeUpdate();
 
 			if (deletedRows == 1) {
-				LOG.info("Se ha eliminado correctamente los registro del id " + autorDe.toString());
+				LOG.info("Se ha eliminado correctamente el registro" + autorDe.toString());
 			} else {
-				LOG.info("No se eliminaron correctamente los registros del id " + autorDe.toString());
+				LOG.info("No se elimino correctamente el registro " + autorDe.toString());
 			}
 		} catch (SQLException e) {
 			LOG.error("SQLException", e);

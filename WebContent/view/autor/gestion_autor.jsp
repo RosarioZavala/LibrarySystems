@@ -42,7 +42,7 @@
 				<div class="p-3">
 					<label for="nacionalidadTXT" class="form-label">Nacionalidad</label>
 					<input type="text" class="form-control" id="nacionalidadTXT"
-						placeholder="Ejemplo: México" required>
+						placeholder="Por ejemplo: Mexicana" required>
 				</div>
 			</div>
 
@@ -51,7 +51,7 @@
 				<div class="p-3">
 					<label for="nombreTXT" class="form-label">Nombre Completo
 						del Autor</label> <input type="text" class="form-control" id="nombreTXT"
-						placeholder="Nombre Completo del autor" required>
+						placeholder="Por ejemplo: Pepe Martínez Morán" required>
 				</div>
 			</div>
 

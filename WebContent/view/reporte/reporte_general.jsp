@@ -22,19 +22,9 @@
 
 	<div class="container overflow-hidden">
 		<div class="row gy-6">
-			<div class="col-4">
+				<div class="col-4">
 				<div class="p-3">
-					<label for="fechaGenTXT" class="form-label">Fecha de
-						Generación </label> <input type="date" class="form-control"
-						id="fechaGenTXT" required>
-				</div>
-			</div>
-
-
-
-			<div class="col-4">
-				<div class="p-3">
-					<label for="periodoInTXT" class="form-label">Período
+					<label for="periodoInTXT" class="form-label">Fecha
 						Inicial</label> <input type="date" class="form-control" id="periodoInTXT"
 						required>
 				</div>
@@ -42,7 +32,7 @@
 
 			<div class="col-4">
 				<div class="p-3">
-					<label for="periodoFinTXT" class="form-label">Período Final</label>
+					<label for="periodoFinTXT" class="form-label">Fecha Final</label>
 					<input type="date" class="form-control" id="periodoFinTXT" required>
 				</div>
 			</div>
@@ -93,7 +83,7 @@
 				<div class="p-3">
 					<label for="precioCompraTXT" class="form-label">Total
 						Precio Compra:</label> <input type="text" class="form-control"
-						id="precioCompraTXT" required>
+						id="precioCompraTXT" readonly="readonly">
 				</div>
 			</div>
 
@@ -101,7 +91,7 @@
 				<div class="p-3">
 					<label for="precioVentaTXT" class="form-label">Total Precio
 						Venta:</label> <input type="text" class="form-control" id="precioVentaTXT"
-						required readonly="readonly">
+						 readonly="readonly">
 				</div>
 
 			</div>
@@ -109,7 +99,7 @@
 			<div class="col-4">
 				<div class="p-3">
 					<label for="gananciaTXT" class="form-label">Ganancia</label> <input
-						type="text" class="form-control" id="gananciaTXT" required>
+						type="text" class="form-control" id="gananciaTXT" readonly="readonly">
 				</div>
 			</div>
 		</div>
@@ -118,7 +108,7 @@
 
 		<div class="container overflow-hidden">
 			<div class="row gy-5">
-				<div class="col-4"></div>
+			
 
 				<div class="col-4">
 					<div class="p-3">
@@ -131,11 +121,11 @@
 
 				</div>
 
-				<div class="col-4" style="margin-left: -60px">
+				<div class="col-4">
 					<div class="p-3">
 
 						<button id="btnGuardarRep" type="submit" class="btn btn-info">
-							<span class="glyphicon glyphicon-search"></span> Guardar
+							<span class="glyphicon glyphicon-search"></span> Exportar
 						</button>
 
 					</div>

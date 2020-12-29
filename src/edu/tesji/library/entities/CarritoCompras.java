@@ -13,11 +13,11 @@ public class CarritoCompras {
 	private String lugarEntrega;
 	private StatusCarritoCompra status;
 	private String folio;
-	private String nombrecmprador;
+	private String nombrecomprador;
 	private List<DetalleCarritoCompras> detalleCCLis;
 
 	public CarritoCompras(int idCarritoCompras, Date fechaCompra, Date fehaEntrega, String lugarEntrega
-			, StatusCarritoCompra status, String folio, String nombrecmprador) {
+			, StatusCarritoCompra status, String folio, String nombrecomprador) {
 		super();
 
 		this.idCarritoCompras = idCarritoCompras;
@@ -26,7 +26,7 @@ public class CarritoCompras {
 		this.lugarEntrega = lugarEntrega;
 		this.setStatus(status);
 		this.folio = folio;
-		this.nombrecmprador = nombrecmprador;
+		this.nombrecomprador = nombrecomprador;
 		this.detalleCCLis = new ArrayList<DetalleCarritoCompras>();
 	}
 
@@ -70,12 +70,12 @@ public class CarritoCompras {
 		this.folio = folio;
 	}
 
-	public String getNombrecmprador() {
-		return nombrecmprador;
+	public String getNombrecomprador() {
+		return nombrecomprador;
 	}
 
-	public void setNombrecmprador(String nombrecmprador) {
-		this.nombrecmprador = nombrecmprador;
+	public void setNombrecomprador(String nombrecmprador) {
+		this.nombrecomprador = nombrecmprador;
 	}
 
 	public List<DetalleCarritoCompras> getDetalleCCLis() {
@@ -98,7 +98,7 @@ public class CarritoCompras {
 	public String toString() {
 		return "CarritoCompras [idCarritoCompras=" + idCarritoCompras + ", fechaCompra=" + fechaCompra
 				+ ", fehaEntrega=" + fehaEntrega + ", lugarEntrega=" + lugarEntrega + ", status=" + status
-				+ ", folio=" + folio + ", nombrecmprador=" + nombrecmprador + ", detalleCCLis=" + detalleCCLis + "]";
+				+ ", folio=" + folio + ", nombrecmprador=" + nombrecomprador + ", detalleCCLis=" + detalleCCLis + "]";
 	}
 
 }

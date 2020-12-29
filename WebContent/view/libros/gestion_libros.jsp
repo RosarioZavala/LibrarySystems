@@ -24,7 +24,7 @@
 				<div class="p-3">
 					<label for="isbnTXT" class="form-label">ISBN</label> <input
 						type="text" class="form-control" id="isbnTXT"
-						placeholder="Ejemplo: 843030407X" required>
+						placeholder="Por ejemplo: 843030407X" required>
 				</div>
 			</div>
 
@@ -32,21 +32,20 @@
 				<div class="p-3">
 					<label for="tituloTXT" class="form-label">Título del libro</label>
 					<input type="text" class="form-control" id="tituloTXT"
-						placeholder="Ejemplo: el libro de sofia. " required>
+						placeholder="Por ejemplo: el libro de sofia. " required>
 				</div>
 			</div>
 
 			<div class="col-6" style="margin-top: 20px">
 				<div class="p-3">
-					<label for="descripcionTXT" class="form-label">Ingrese una
-						descripción del libro</label> <input type="text" class="form-control"
+					<label for="descripcionTXT" class="form-label">Descripción del libro</label> <input type="text" class="form-control"
 						id="descripcionTXT"
-						placeholder="Ejemplo: Encuadernación de tapa blanda..." required>
+						placeholder="Por ejemplo: Encuadernación de tapa blanda..." required>
 				</div>
 			</div>
 			<div class="col-3" style="margin-top: 20px">
 				<div class="p-3">
-					<label for="numeroPaginasTXT" class="form-label">Número de
+					<label for="numeroPaginasTXT" class="form-label">Num
 						Páginas</label> <input type="text" class="form-control"
 						id="numeroPaginasTXT" placeholder="Por ejemplo: 192" required>
 				</div>
@@ -64,9 +63,9 @@
 
 			<div class="col-6" style="margin-top: 20px">
 				<div class="p-3">
-					<label for="precioVentaTXT" class="form-label">Precio Venta</label>
+					<label for="precioVentaTXT" class="form-label">Precio Venta en Pesos</label>
 					<input type="text" class="form-control" id="precioVentaTXT"
-						placeholder="Por ejemplo: $452" required>
+						placeholder="Por ejemplo: 452" required>
 				</div>
 
 
@@ -76,8 +75,8 @@
 			<div class="col-6" style="margin-top: 20px">
 				<div class="p-3">
 					<label for="precioComprasTXT" class="form-label">Precio
-						Compra</label> <input type="text" class="form-control"
-						id="precioComprasTXT" placeholder="Por ejemplo: $152" required>
+						Compra en Pesos</label> <input type="text" class="form-control"
+						id="precioComprasTXT" placeholder="Por ejemplo: 152" required>
 				</div>
 			</div>
 
@@ -156,25 +155,11 @@
 						
 					<div class="container overflow-hidden">
 		<div class="row gy-5">
-
-			<div class="col-2">
+	<div class="col-2" style="margin-left: 18px">
 				<div class="p-3">
-
-					<button id="btnLimpiar" type="submit" class="btn btn-info">
-						<span class="glyphicon glyphicon-search"></span> Limpiar
+					<button id="btnConsultar" type="submit" class="btn btn-info">
+						<span class="glyphicon glyphicon-search"></span> Consultar
 					</button>
-
-				</div>
-
-			</div>
-
-			<div class="col-2">
-				<div class="p-3">
-
-					<button id="btnEliminar" type="submit" class="btn btn-info">
-						<span class="glyphicon glyphicon-search"></span> Eliminar
-					</button>
-
 				</div>
 
 			</div>
@@ -201,14 +186,32 @@
 
 			</div>
 
-			<div class="col-2" style="margin-left: 18px">
+		
+			
+		
+
+			<div class="col-2">
 				<div class="p-3">
-					<button id="btnConsultar" type="submit" class="btn btn-info">
-						<span class="glyphicon glyphicon-search"></span> Consultar
+
+					<button id="btnEliminar" type="submit" class="btn btn-info">
+						<span class="glyphicon glyphicon-search"></span> Eliminar
 					</button>
+
 				</div>
 
 			</div>
+				<div class="col-2">
+				<div class="p-3">
+
+					<button id="btnLimpiar" type="submit" class="btn btn-info">
+						<span class="glyphicon glyphicon-search"></span> Limpiar
+					</button>
+
+				</div>
+
+			</div>
+			
+			
 			
 			
 			</div>

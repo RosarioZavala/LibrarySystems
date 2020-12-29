@@ -18,7 +18,7 @@ public class CarritoComprasDAO {
 	private PreparedStatement prepStatement;
 	private ResultSet resultSet;
 	private static final String QUERY_SELECT_ALL_CARRITOCOMPRAS = "SELECT idcarritocompras, fechacompra, fechaentrega"
-			+ ", lugaentrega, idstatuscarrito,folio,nombrecmprador FROM carritocompras";
+			+ ", lugaentrega, idstatuscarrito,folio,nombrecomprador FROM carritocompras";
 	private static final String QUERY_SELECT_CARRITOCOMPRAS_BY_FECHACOMPRA = "SELECT * FROM carritocompras WHERE"
 			+ " fechacompra BETWEEN ? AND ?";
 	private static final String QUERY_SELECT_CARRITOCOMPRAS_BY_FECHAENTREGA = "SELECT * FROM carritocompras WHERE"
@@ -32,7 +32,7 @@ public class CarritoComprasDAO {
 			+ " foliocarritocompras = ?";
 	private static final String QUERY_SELECT_CARRITOCOMPRAS_BY_NOMBRECOMPRADOR = "SELECT * FROM carritocompras WHERE"
 			+ " nombrecomprador LIKE ?";
-	private static final String QUERY_INSERT_CARRITOCOMPRAS = "INSERT INTO carritocompras (fechacompra, fechaentrega, lugaentrega, idstatuscarrito) values (?,?,?,?)";
+	private static final String QUERY_INSERT_CARRITOCOMPRAS = "INSERT INTO carritocompras ( fechacompra,fechaentrega, lugarentrega, idstatuscarrito,foliocarritocompras,nombrecomprador,) values (?,?,?,?,?,?)";
 	private static final String QUERY_DELET_CARRITOCOMPRAS = "DELETE FROM carritocompras WHERE idcarritocompras = ? ";
 	private static final String QUERY_UPDATE_CARRITOCOMPRAS = "UPDATE carritocompras SET fechacompra  = ? , fechaentrega = ?, lugaentrega = ?, idstatuscarrito = ?,foliocarritocompras = ?, nombrecomprador = ?  WHERE idcarritocompras= ?";
 
@@ -279,7 +279,7 @@ public class CarritoComprasDAO {
 			prepStatement.setString(3, carritoCompras.getLugarEntrega());
 			prepStatement.setInt(4, carritoCompras.getStatus().idStatus);
 			prepStatement.setString(5, carritoCompras.getFolio());
-			prepStatement.setString(6, carritoCompras.getNombrecmprador());
+			prepStatement.setString(6, carritoCompras.getNombrecomprador());
 
 			insertedRows = prepStatement.executeUpdate();
 
@@ -350,9 +350,9 @@ public class CarritoComprasDAO {
 			updatedRows = prepStatement.executeUpdate();
 
 			if (updatedRows == 1) {
-				LOG.info("Los registros " + carritoCompras.toString() + "Han sido actualizados correctamente");
+				LOG.info("El registro " + carritoCompras.toString() + "Ha sido actualizado correctamente");
 			} else {
-				LOG.info("Los registros " + carritoCompras.toString() + "Noo han sido actualizados correctamente");
+				LOG.info("El registro " + carritoCompras.toString() + "Noo ha sido actualizado correctamente");
 			}
 		} catch (SQLException e) {
 			LOG.error("SQLException", e);
