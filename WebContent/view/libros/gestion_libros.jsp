@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -83,29 +84,33 @@
 
 			<div class="col-6" style="margin-top: 20px">
 				<div class="p-3">
-					<label for="autorCMB" class="form-label">Autor</label> <select
-						class="form-select" aria-label="Default select example"
-						id="autorCMB" required>
-						<option selected>Seleccione un autor</option>
-						<option value="1">One</option>
-						<option value="2">Two</option>
-						<option value="3">Three</option>
+						<label for="autorSelect" class="form-label">Selecciona
+						Autor</label> <select id="editorialSelect" name="autorSelect"
+						class="form-select" aria-label="Default select example">
+						<c:forEach  var="autor" items="${autores}">
+							<option value="${autor.idautor}">${autor.nombreCompleto}</option>
+						</c:forEach>
 					</select>
 				</div>
 			</div>
+			
+			
 
 
 
 			<div class="col-6" style="margin-top: 20px">
 				<div class="p-3">
-					<label for="editorialCMB" class="form-label">Editorial</label> <select
-						id="editorialCMB" class="form-select"
-						aria-label="Default select example">
-						<option selected>Seleccione una editorial</option>
-						<option value="1">One</option>
-						<option value="2">Two</option>
-						<option value="3">Three</option>
+			
+
+					<label for="editorialSelect" class="form-label">Selecciona
+						Editorial</label> <select id="editorialSelect" name="editorialSelect"
+						class="form-select" aria-label="Default select example">
+						<c:forEach  var="editorial" items="${editoriales}">
+							<option value="${editorial.idEditorial}">${editorial.nombreEditorial}</option>
+						</c:forEach>
 					</select>
+					
+			
 				</div>
 
 			</div>
@@ -217,5 +222,7 @@
 			</div>
 			
 			</div>
+			
+			
 </body>
 </html>

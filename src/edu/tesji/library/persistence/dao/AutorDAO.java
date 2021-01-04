@@ -250,9 +250,9 @@ public class AutorDAO {
 			updatedRows = prepStatement.executeUpdate();
 
 			if (updatedRows == 1) {
-				LOG.info("Se han actualizado correctamente los registros  del Autor " + autorUp.toString());
+				LOG.info("Se ha actualizado correctamente el registro  del Autor " + autorUp.toString());
 			} else {
-				LOG.info("No han actualizado correctamente los registros  del Autor " + autorUp.toString());
+				LOG.info("No se ha actualizado correctamente el registro  del Autor " + autorUp.toString());
 			}
 		} catch (SQLException e) {
 			LOG.error("SQLException", e);
@@ -261,7 +261,7 @@ public class AutorDAO {
 				try {
 					connection.close();
 				} catch (SQLException e) {
-					LOG.error("SQLExceptión");
+					LOG.error("SQLExceptión",e);
 				}
 			}
 		}

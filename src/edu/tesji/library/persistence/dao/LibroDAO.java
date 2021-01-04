@@ -15,13 +15,21 @@ public class LibroDAO {
 	private static final Logger LOG = Logger.getLogger(LibroDAO.class);
 	private PreparedStatement prepStatement;
 	private ResultSet resultSet;
+	
+	
 	private static final String QUERY_SELECT_ALL_LIBRO = "SELECT idlibro,titulo,isbn,descripcion,paginas,precioventa"
-			+ ",preciocompra,inventario,status FROM libro";
+			+ ",preciocompra,inventario,status,portada FROM libro";
+	private static final String QUERY_SELECT_LIBRO_BY_ID = "SELECT  idlibro,titulo,isbn,descripcion,paginas,precioventa FROM libro WHERE idlibro = ?";
 	private String querySelectLibroByFilters = "SELECT idlibro,titulo,isbn,descripcion,paginas,precioventa"
-			+ ",preciocompra,inventario,status FROM libro WHERE 1=1 ";
+			+ ",preciocompra,inventario,status,portada FROM libro WHERE 1=1 ";
+	
+///			SELECT  titulo,isbn,descripcion,paginas,preciocompra,inventario FROM libro WHERE isbn LIKE '%84303270%'
 	private static final String QUERY_INSERT_LIBRO = "INSERT INTO libro (titulo,isbn,descripcion,paginas,precioventa"
-			+ ",preciocompra,inventario,status) VALUES (?,?, ?,?,?,?,?)";
+			+ ",preciocompra,inventario,status, portada) VALUES (?,?,?,?,?,?,?,?,?)";
 
+	private static final String QUERY_UPDATE_LIBRO = "UPDATE libro SET titulo =?,isbn = ?, descripción = ?,paginas = ?, precioventa =?, preciocompra =?, inventario =?,status =?, portada=? WHERE idlibro=?";
+
+	
 	public List<Libro> selectAllLibros() {
 		List<Libro> libroList = new ArrayList<Libro>();
 		Connection connection = null;
@@ -34,8 +42,8 @@ public class LibroDAO {
 			while (resultSet.next()) {
 				Libro libro = new Libro(resultSet.getInt("idlibro"),  resultSet.getString("titulo"),resultSet.getString("isbn"),
 						resultSet.getString("descripcion"), resultSet.getString("paginas"),
-						resultSet.getBigDecimal("precioventa"), resultSet.getBigDecimal("preciocompra"),
-						resultSet.getInt("inventario"), resultSet.getBoolean("status"));
+						resultSet.getBigDecimal("precioventa"),resultSet.getBigDecimal("preciocompra"),
+						resultSet.getInt("inventario"), resultSet.getBoolean("status"),resultSet.getBlob("portada"));
 				libroList.add(libro);
 			}
 		} catch (SQLException e) {
@@ -68,7 +76,7 @@ public class LibroDAO {
 				Libro libro = new Libro(resultSet.getInt("idlibro"),  resultSet.getString("titulo"),resultSet.getString("isbn"),
 						resultSet.getString("descripcion"), resultSet.getString("paginas"),
 						resultSet.getBigDecimal("precioventa"), resultSet.getBigDecimal("preciocompra"),
-						resultSet.getInt("inventario"), resultSet.getBoolean("status"));
+						resultSet.getInt("inventario"), resultSet.getBoolean("status"), resultSet.getBlob("portada"));
 				libroList.add(libro);
 			}
 		} catch (SQLException e) {
@@ -158,6 +166,7 @@ public class LibroDAO {
 			prepStatement.setBigDecimal(6, libroIn.getPrecioCompra());
 			prepStatement.setInt(7, libroIn.getInventario());
 			prepStatement.setBoolean(8, libroIn.isStatus());
+			prepStatement.setBlob(9, libroIn.getPortada());
 
 			insertedRows = prepStatement.executeUpdate();
 
@@ -184,5 +193,34 @@ public class LibroDAO {
 			}
 		}
 		return insertedRows;
+	}
+	
+	public int updateLibro (Libro libro) {
+		int updatedRows = -3;
+		Connection connection = null;
+		try {
+			DBConnection dbConnection = new DBConnection();
+			connection = dbConnection.getConnection();
+			prepStatement = connection.prepareStatement(QUERY_UPDATE_LIBRO);
+			prepStatement.setInt(1,libro.getIdLibro());
+			
+			updatedRows = prepStatement.executeUpdate();
+			if(updatedRows == 1) {
+				LOG.info("Se ha actualizado correctamente el registro " + libro.toString());
+			}else {
+				LOG.info("No se ha actualizado correctamente el registro " + libro.toString());
+			}
+	}catch (SQLException e) {
+		LOG.error("SQLException",e);
+	}finally {
+		if(connection != null) {
+			try {
+				connection.close();
+				}catch (SQLException e) {
+					LOG.error("SQLException",e);
+				}
+		}
+	}
+		return updatedRows;
 	}
 }

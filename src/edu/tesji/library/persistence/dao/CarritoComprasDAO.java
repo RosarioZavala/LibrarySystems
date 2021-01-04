@@ -18,13 +18,13 @@ public class CarritoComprasDAO {
 	private PreparedStatement prepStatement;
 	private ResultSet resultSet;
 	private static final String QUERY_SELECT_ALL_CARRITOCOMPRAS = "SELECT idcarritocompras, fechacompra, fechaentrega"
-			+ ", lugaentrega, idstatuscarrito,folio,nombrecomprador FROM carritocompras";
+			+ ", lugarentrega, idstatuscarrito,folio,nombrecomprador FROM carritocompras";
 	private static final String QUERY_SELECT_CARRITOCOMPRAS_BY_FECHACOMPRA = "SELECT * FROM carritocompras WHERE"
 			+ " fechacompra BETWEEN ? AND ?";
 	private static final String QUERY_SELECT_CARRITOCOMPRAS_BY_FECHAENTREGA = "SELECT * FROM carritocompras WHERE"
 			+ " fechaentrega BETWEEN ? AND ?";
 	private static final String QUERY_SELECT_CARRITOCOMPRAS_BY_LUGARENTREGA = "SELECT * FROM carritocompras WHERE"
-			+ " lugaentrega LIKE ?";
+			+ " lugarentrega LIKE ?";
 
 	private static final String QUERY_SELECT_CARRITOCOMPRAS_BY_STATUS = "SELECT * FROM carritocompras WHERE"
 			+ " idstatuscarrito = ?";
@@ -34,7 +34,7 @@ public class CarritoComprasDAO {
 			+ " nombrecomprador LIKE ?";
 	private static final String QUERY_INSERT_CARRITOCOMPRAS = "INSERT INTO carritocompras ( fechacompra,fechaentrega, lugarentrega, idstatuscarrito,foliocarritocompras,nombrecomprador,) values (?,?,?,?,?,?)";
 	private static final String QUERY_DELET_CARRITOCOMPRAS = "DELETE FROM carritocompras WHERE idcarritocompras = ? ";
-	private static final String QUERY_UPDATE_CARRITOCOMPRAS = "UPDATE carritocompras SET fechacompra  = ? , fechaentrega = ?, lugaentrega = ?, idstatuscarrito = ?,foliocarritocompras = ?, nombrecomprador = ?  WHERE idcarritocompras= ?";
+	private static final String QUERY_UPDATE_CARRITOCOMPRAS = "UPDATE carritocompras SET fechacompra  = ? , fechaentrega = ?, lugarentrega = ?, idstatuscarrito = ?,foliocarritocompras = ?, nombrecomprador = ?  WHERE idcarritocompras= ?";
 
 	public List<CarritoCompras> selectAllCarritoCompras() {
 		List<CarritoCompras> carritoComprasList = new ArrayList<CarritoCompras>();
@@ -48,7 +48,7 @@ public class CarritoComprasDAO {
 			while (resultSet.next()) {
 				CarritoCompras carritoCompra = new CarritoCompras(resultSet.getInt("idcarritocompras"),
 						resultSet.getDate("fechacompra"), resultSet.getDate("fechaEntrega"),
-						resultSet.getString("lugaentrega"), 
+						resultSet.getString("lugarentrega"), 
 						StatusCarritoCompra.valueOfIdStatus(resultSet.getInt("idstatuscarrito")),
 						resultSet.getString("folio"), resultSet.getString("nombrecomprador"));
 				carritoComprasList.add(carritoCompra);
@@ -82,7 +82,7 @@ public class CarritoComprasDAO {
 			while (resultSet.next()) {
 				CarritoCompras carritoCompra = new CarritoCompras(resultSet.getInt("idcarritocompras"),
 						resultSet.getDate("fechacompra"), resultSet.getDate("fechaEntrega"),
-						resultSet.getString("lugaentrega"), 
+						resultSet.getString("lugarentrega"), 
 						StatusCarritoCompra.valueOfIdStatus(resultSet.getInt("idstatuscarrito")),
 						resultSet.getString("folio"), resultSet.getString("nombrecomprador"));
 				carritoComprasList.add(carritoCompra);
@@ -116,7 +116,7 @@ public class CarritoComprasDAO {
 			while (resultSet.next()) {
 				CarritoCompras carritoCompra = new CarritoCompras(resultSet.getInt("idcarritocompras"),
 						resultSet.getDate("fechacompra"), resultSet.getDate("fechaEntrega"),
-						resultSet.getString("lugaentrega"), 
+						resultSet.getString("lugarentrega"), 
 						StatusCarritoCompra.valueOfIdStatus(resultSet.getInt("idstatuscarrito")),
 						resultSet.getString("folio"), resultSet.getString("nombrecomprador"));
 				carritoComprasList.add(carritoCompra);
@@ -149,7 +149,7 @@ public class CarritoComprasDAO {
 			while (resultSet.next()) {
 				CarritoCompras carritoCompra = new CarritoCompras(resultSet.getInt("idcarritocompras"),
 						resultSet.getDate("fechacompra"), resultSet.getDate("fechaEntrega"),
-						resultSet.getString("lugaentrega"), 
+						resultSet.getString("lugarentrega"), 
 						StatusCarritoCompra.valueOfIdStatus(resultSet.getInt("idstatuscarrito")),
 						resultSet.getString("folio"), resultSet.getString("nombrecomprador"));
 				carritoComprasList.add(carritoCompra);
@@ -182,7 +182,7 @@ public class CarritoComprasDAO {
 			while (resultSet.next()) {
 				CarritoCompras carritoCompra = new CarritoCompras(resultSet.getInt("idcarritocompras"),
 						resultSet.getDate("fechacompra"), resultSet.getDate("fechaEntrega"),
-						resultSet.getString("lugaentrega"), 
+						resultSet.getString("lugarentrega"), 
 						StatusCarritoCompra.valueOfIdStatus(resultSet.getInt("idstatuscarrito")),
 						resultSet.getString("folio"), resultSet.getString("nombrecomprador"));
 				carritoComprasList.add(carritoCompra);
@@ -215,7 +215,7 @@ public class CarritoComprasDAO {
 			while (resultSet.next()) {
 				CarritoCompras carritoCompra = new CarritoCompras(resultSet.getInt("idcarritocompras"),
 						resultSet.getDate("fechacompra"), resultSet.getDate("fechaEntrega"),
-						resultSet.getString("lugaentrega"), 
+						resultSet.getString("lugarentrega"), 
 						StatusCarritoCompra.valueOfIdStatus(resultSet.getInt("idstatuscarrito")),
 						resultSet.getString("folio"), resultSet.getString("nombrecomprador"));
 				carritoComprasList.add(carritoCompra);
@@ -247,7 +247,7 @@ public class CarritoComprasDAO {
 			while (resultSet.next()) {
 				CarritoCompras carritoCompra = new CarritoCompras(resultSet.getInt("idcarritocompras"),
 						resultSet.getDate("fechacompra"), resultSet.getDate("fechaEntrega"),
-						resultSet.getString("lugaentrega"), 
+						resultSet.getString("lugarentrega"), 
 						StatusCarritoCompra.valueOfIdStatus(resultSet.getInt("idstatuscarrito")),
 						resultSet.getString("folio"), resultSet.getString("nombrecomprador"));
 				carritoComprasList.add(carritoCompra);

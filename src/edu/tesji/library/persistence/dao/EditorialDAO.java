@@ -25,7 +25,8 @@ public class EditorialDAO {
 	private static final String QUERY_SELECT_EDITORIAL_BY_LUGARIMPRESION = "SELECT ideditorial,nombreeditorial,lugardeimpresion "
 			+ " FROM editorial WHERE lugardeimpresion LIKE ? ORDER BY nombreeditorial ASC";
 	private static final String QUERY_INSERT_EDITORIAL = "INSERT INTO editorial(nombreeditorial, lugardeimpresion) VALUES (?,?)";
-
+	private static final String QUERY_DELETE_EDITORIAL = "DELETE FROM editoriaL WHERE ideditorial = ?  ";
+	private static final String QUERY_UPDATE_EDITORIAL = "UPDATE editoriaL SET nombreeditorial =?, lugardeimpresion=?";
 	public List<Editorial> selectAllEditorial() {
 		List<Editorial> editorialList = new ArrayList<Editorial>();
 		Connection connection = null;
@@ -158,10 +159,10 @@ public class EditorialDAO {
 			insertedRows = prepStatement.executeUpdate();
 
 			if (insertedRows == 1) {
-				LOG.info("Se ha insertadp correctamente el registro" + "NombreEditorial"
+				LOG.info("Se ha insertado correctamente los registros" + "NombreEditorial"
 						+ editorialIn.getNombreEditorial() + "Lugar de Impresion" + editorialIn.getLugarDeImpresion());
 			} else
-				LOG.info("No se ha insertadp correctamente el registro" + "NombreEditorial"
+				LOG.info("No se ha insertado correctamente los registros" + "NombreEditorial"
 						+ editorialIn.getNombreEditorial() + "Lugar de Impresion" + editorialIn.getLugarDeImpresion());
 		} catch (SQLException e) {
 			LOG.error("SQLException", e);
@@ -175,5 +176,66 @@ public class EditorialDAO {
 			}
 		}
 		return insertedRows;
+	}
+	
+	public int deleteEditorial(Editorial editorial) {
+		int deletedRows = -3;
+		Connection connection = null;
+		try {
+			DBConnection dbConnection = new DBConnection();
+			connection = dbConnection.getConnection();
+			prepStatement = connection.prepareStatement(QUERY_DELETE_EDITORIAL);
+			prepStatement.setInt(1, editorial.getIdEditorial());
+			
+			deletedRows = prepStatement.executeUpdate();
+			
+			if (deletedRows == 1) {
+				LOG.info("El registro se ha eliminado correctamente" + editorial.toString());
+			}else {
+				LOG.info("El registro no se ha elimnado correctamente" + editorial.toString());
+			}
+		}catch(SQLException e) {
+			LOG.error("SQLExcepion",e);
+		}finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				}catch(SQLException e) {
+					LOG.error("SQLException",e);
+				}
+			}
+		}
+		return deletedRows;
+	}
+	
+	public int updateEditorial(Editorial editorial) {
+		int updatedRows = -3;
+		Connection connection = null;
+		
+		try {
+			DBConnection dbConnection = new DBConnection();
+			connection = dbConnection.getConnection();
+			prepStatement = connection.prepareStatement(QUERY_UPDATE_EDITORIAL);
+			prepStatement.setInt(1,editorial.getIdEditorial());
+			
+			updatedRows = prepStatement.executeUpdate();
+			
+			if (updatedRows == 1) {
+				LOG.info("Se ha actualizado correctamente el registro" + editorial.toString());
+			}else {
+				LOG.info("No se han actualizado correctamente los registros" + editorial.toString());
+			}
+		}catch (SQLException e) {
+			LOG.error("SQLException", e);
+		}finally {
+			if(connection != null) {
+				try {
+					connection.close();
+				}catch(SQLException e) {
+					LOG.error("SQLException", e);
+				}
+			}
+		}
+		return  updatedRows;
 	}
 }
