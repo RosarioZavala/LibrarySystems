@@ -1,6 +1,9 @@
 package edu.tesji.library.entities;
 
 import java.math.BigDecimal;
+import java.sql.Blob;
+
+
 
 public class Libro {
 	private int idLibro;
@@ -12,8 +15,10 @@ public class Libro {
 	private BigDecimal precioCompra;
 	private int inventario;
 	private boolean status;
+	private Blob portada;
+	
 	public Libro(int idLibro, String titulo, String isbn, String descripcion, String paginas, BigDecimal precioVenta,
-			BigDecimal precioCompra, int inventario, boolean status) {
+			BigDecimal precioCompra, int inventario, boolean status, Blob portada) {
 		super();
 		this.idLibro = idLibro;
 		this.titulo = titulo;
@@ -24,68 +29,96 @@ public class Libro {
 		this.precioCompra = precioCompra;
 		this.inventario = inventario;
 		this.status = status;
+		this.portada = portada;
 	}
+
 	public int getIdLibro() {
 		return idLibro;
 	}
+
 	public void setIdLibro(int idLibro) {
 		this.idLibro = idLibro;
 	}
+
 	public String getTitulo() {
 		return titulo;
 	}
+
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
+
 	public String getIsbn() {
 		return isbn;
 	}
+
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
+
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
 	public String getPaginas() {
 		return paginas;
 	}
+
 	public void setPaginas(String paginas) {
 		this.paginas = paginas;
 	}
+
 	public BigDecimal getPrecioVenta() {
 		return precioVenta;
 	}
+
 	public void setPrecioVenta(BigDecimal precioVenta) {
 		this.precioVenta = precioVenta;
 	}
+
 	public BigDecimal getPrecioCompra() {
 		return precioCompra;
 	}
+
 	public void setPrecioCompra(BigDecimal precioCompra) {
 		this.precioCompra = precioCompra;
 	}
+
 	public int getInventario() {
 		return inventario;
 	}
+
 	public void setInventario(int inventario) {
 		this.inventario = inventario;
 	}
+
 	public boolean isStatus() {
 		return status;
 	}
+
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+
+	public Blob getPortada() {
+		return portada;
+	}
+
+	public void setPortada(Blob portada) {
+		this.portada = portada;
+	}
+
 	@Override
 	public String toString() {
 		return "Libro [idLibro=" + idLibro + ", titulo=" + titulo + ", isbn=" + isbn + ", descripcion=" + descripcion
 				+ ", paginas=" + paginas + ", precioVenta=" + precioVenta + ", precioCompra=" + precioCompra
-				+ ", inventario=" + inventario + ", status=" + status + "]";
+				+ ", inventario=" + inventario + ", status=" + status + ", portada=" + portada + "]";
 	}
-
 	
-
+	
+	
 }
