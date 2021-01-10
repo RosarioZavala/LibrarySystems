@@ -9,8 +9,25 @@
 <script src="http://127.0.0.1:8080/LibrarySystems/js/bootstrap.js"></script>
 <meta charset="ISO-8859-1">
 <title>Gestión de Autores</title>
+<script>
+	function save_autor()
+	{
+      this.document.getElementById("action").value = 'save';
+      var frm = this.document.getElementById("autorForm");
+      frm.submit();
+	}
+
+	function mostrar_alert()
+	{
+		var msg = '${message}';
+		if (msg.length > 1) {
+			alert(msg);	
+		}
+	}
+	
+</script>
 </head>
-<body>
+<body onload="mostrar_alert()">
 
 	<jsp:include page="/view/login/menu_admin.jsp" flush="true" />
 
@@ -25,15 +42,16 @@
 		</div>
 	</div>
 
-	<form action="autor" method="get" id="autorForm" role="form">
-
+	<form action="autor" method="get" id="autorForm" role="form" >
+		<input type="hidden" id="action" name="action">
+		
 		<div class="container overflow-hidden">
 			<div class="row gy-5">
 				<div class="col-7">
 					<div class="p-3">
 						<label for="claveAutorTXT" class="form-label">Clave Autor</label>
 						<input type="text" class="form-control" id="claveAutorTXT"
-							placeholder="Por ejemplo: CURP, No. de Ciudadano" required>
+							name="claveAutorTXT" placeholder="Por ejemplo: CURP, No. de Ciudadano" required>
 					</div>
 				</div>
 
@@ -43,7 +61,7 @@
 					<div class="p-3">
 						<label for="nacionalidadTXT" class="form-label">Nacionalidad</label>
 						<input type="text" class="form-control" id="nacionalidadTXT"
-							placeholder="Por ejemplo: Mexicana" required>
+							name="nacionalidadTXT" placeholder="Por ejemplo: Mexicana" required>
 					</div>
 				</div>
 
@@ -52,13 +70,13 @@
 					<div class="p-3">
 						<label for="nombreTXT" class="form-label">Nombre Completo
 							del Autor</label> <input type="text" class="form-control" id="nombreTXT"
-							placeholder="Por ejemplo: Pepe Martínez Morán" required>
+							name="nombreTXT" placeholder="Por ejemplo: Pepe Martínez Morán" required>
 					</div>
 				</div>
 
 				<div class="col-12">
 
-					<table id="autorForm" class="table table-hover" role="form">
+					<table id="autorForm" class="table table-hover table-striped" role="form">
 
 						<thead>
 							<tr>
@@ -104,7 +122,7 @@
 					<div class="p-3">
 
 						<button id="btnAgregar" type="button" class="btn btn-info"
-							onclick="location.href='http://127.0.0.1:8080/LibrarySystems/autor?action=save'">
+							onclick="save_autor()">
 							<span class="glyphicon glyphicon-search"></span> Agregar
 						</button>
 
@@ -133,6 +151,16 @@
 					</div>
 
 				</div>
+				
+				<div class="col-2">
+					<div class="p-3">
+						<button id="btnLimpiar" type="reset" class="btn btn-info">
+							<span class="glyphicon glyphicon-search"></span> Limpiar
+						</button>
+					</div>
+
+				</div>
+				
 	</form>
 
 

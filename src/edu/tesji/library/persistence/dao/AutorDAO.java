@@ -16,7 +16,8 @@ public class AutorDAO {
 	private static final Logger LOG = Logger.getLogger(AutorDAO.class);
 	private PreparedStatement prepStatement;
 	private ResultSet resultSet;
-	private static final String QUERY_SELECT_ALL_AUTOR = "SELECT idautor, claveautor,nombrecompleto,nacionalidad FROM autor";
+	private static final String QUERY_SELECT_ALL_AUTOR = "SELECT idautor, claveautor,nombrecompleto,nacionalidad FROM autor"
+			+ " ORDER BY nombrecompleto ASC";
 	private static final String QUERY_SELECT_AUTOR_BY_ID = "SELECT idautor, claveautor,nombrecompleto,nacionalidad "
 			+ "FROM autor WHERE idautor = ?";
 	private static final String QUERY_SELECT_AUTOR_BY_CLAVEAUTOR = "SELECT idautor, claveautor,nombrecompleto,nacionalidad "

@@ -26,12 +26,12 @@ public class AutorController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
-		log.info("##### controller Autor" + action);
+		log.info("##### controller Autor: " + action);
 		String claveAutor = request.getParameter("claveAutorTXT");
 		String nacionalidad = request.getParameter("nacionalidadTXT");
 		String nombreCompleto = request.getParameter("nombreTXT");
 
-		Autor autorEntity = new Autor(0, claveAutor, nacionalidad, nombreCompleto);
+		Autor autorEntity = new Autor(0, claveAutor, nombreCompleto, nacionalidad);
 		// request.getSession();
 
 		switch (action) {
@@ -43,7 +43,20 @@ public class AutorController extends HttpServlet {
 			break;
 		case SessionAttributes.ACTION_SAVE:
 			log.info("##### Guardando Autor... ");
-			insertAutor(autorEntity);
+			int affectedRows = insertAutor(autorEntity);
+			String message;
+			if (affectedRows == 1) {
+				message = "Registro insertado exitosamente.";
+			} else {
+				message = "Registro NO insertado exitosamente.";
+			}
+			request.setAttribute("message", message);
+
+			List<Autor>lista = loadAutores();
+			request.setAttribute("autores", lista);
+			
+			request.getRequestDispatcher("/view/autor/gestion_autor.jsp").forward(request, response);
+			
 			break;
 		case SessionAttributes.ACTION_DELETE:
 			deleteAutor(autorEntity);
