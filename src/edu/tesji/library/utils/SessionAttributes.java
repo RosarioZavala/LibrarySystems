@@ -17,6 +17,10 @@ public class SessionAttributes {
 	 */
 	public static final String ACTION_SAVE = "save";
 	
-	
-	
+	//Nombre del action para eliminar registro
+	public static final String ACTION_DELETE = "delete";
+	//Nombre del action para actualizar registro
+			public static final String ACTION_UPDATE ="update";
+	//Nombre del action para limpiar campos
+			public static final String ACTION_CLEAN = "clean";
 }
