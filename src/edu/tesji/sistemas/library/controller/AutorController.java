@@ -30,6 +30,7 @@ public class AutorController extends HttpServlet {
 		String claveAutor = request.getParameter("claveAutorTXT");
 		String nacionalidad = request.getParameter("nacionalidadTXT");
 		String nombreCompleto = request.getParameter("nombreTXT");
+		String idAutorForDeleteOrUpdate = request.getParameter("idAutorForDeleteOrUpdate");
 
 		Autor autorEntity = new Autor(0, claveAutor, nombreCompleto, nacionalidad);
 		// request.getSession();
@@ -60,21 +61,31 @@ public class AutorController extends HttpServlet {
 			break;
 		case SessionAttributes.ACTION_DELETE:
 			log.info("Eliminando registro");
-			int affectedRow =deleteAutor(autorEntity);
-			String messageError;
-			if(affectedRow == 1) {
-				messageError = "Registro eliminado exitosamente";
-			}else {
-				messageError = "Registro no eliminado exitosamente";
+			
+			
+			if (idAutorForDeleteOrUpdate == null || idAutorForDeleteOrUpdate.trim().isEmpty()) {
+				message = "Debe de seleccionar un registro para Eliminarlo.";
+				List<Autor>listaDel = loadAutores();
+				request.setAttribute("autores", listaDel);
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/view/autor/gestion_autor.jsp").forward(request, response);
+				break;
 			}
-			request.setAttribute("messageError", messageError);
-			
-			List<Autor>listaD = loadAutores();
-			request.setAttribute("autores", listaD);
-			
+			autorEntity.setIdautor(Integer.parseInt(idAutorForDeleteOrUpdate));
+			int affectedRowsDel = deleteAutor(autorEntity);
+			if (affectedRowsDel == 1) {
+				message = "Registro eliminado exitosamente.";
+			} else {
+				message = "Registro NO eliminado.";
+			}
+			request.setAttribute("message", message);
+
+			List<Autor>listaDel = loadAutores();
+			request.setAttribute("autores", listaDel);
 			request.getRequestDispatcher("/view/autor/gestion_autor.jsp").forward(request, response);
 			
 			break;
+			
 		case SessionAttributes.ACTION_UPDATE:
 				update(autorEntity);
 			break;
