@@ -12,27 +12,25 @@
 <title>Gestión de libros</title>
 
 <script>	
-function save_libro()
-{
+function save_libro() {
   this.document.getElementById("action").value = 'save';
   var frm = this.document.getElementById("librosForm");
   frm.submit();
 }
 
-function find_libro())
-{
+function find_libro()) {
     this.document.getElementById("action").value = 'find';
     var frm = this.document.getElementById("librosForm");
     frm.submit();
-	}
-function mostrar_alert()
-{
+}
+	
+function mostrar_alert() {
 	var msg = '${message}';
 	if (msg.length > 1) {
 		alert(msg);	
 	}
 }
-	</script>
+</script>
 
 </head>
 <body onload="mostrar_alert()">
@@ -42,6 +40,8 @@ function mostrar_alert()
 	<h2 class="mx-auto" style="text-align: center;">Gestión de Libros</h2>
 	<br>
 	<form action="libros" method="get" id="librosForm" role="form" enctype="multipart/form-data">
+		<input type="hidden" id="action" name="action">
+		
 		<div class="container overflow-hidden">
 			<div class="row gy-5">
 				<div class="col-6">
@@ -209,7 +209,8 @@ function mostrar_alert()
 				<div class="col-2" style="margin-left: 5px">
 					<div class="p-3">
 
-						<button id="btnAgregar" type="button" class="btn btn-info" onclick="save_libro()">
+						<button id="btnAgregar" type="button" class="btn btn-info"
+						 onclick="save_libro()">
 							<span class="glyphicon glyphicon-search"></span> Agregar
 						</button>
 
