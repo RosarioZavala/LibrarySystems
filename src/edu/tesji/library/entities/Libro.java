@@ -1,7 +1,10 @@
 package edu.tesji.library.entities;
 
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.sql.Blob;
+
+import org.xml.sax.InputSource;
 
 
 
@@ -15,10 +18,10 @@ public class Libro {
 	private BigDecimal precioCompra;
 	private int inventario;
 	private boolean status;
-	private Blob portada;
+	private InputStream portada;
 	
 	public Libro(int idLibro, String titulo, String isbn, String descripcion, String paginas, BigDecimal precioVenta,
-			BigDecimal precioCompra, int inventario, boolean status, Blob portada) {
+			BigDecimal precioCompra, int inventario, boolean status, InputStream portada) {
 		super();
 		this.idLibro = idLibro;
 		this.titulo = titulo;
@@ -30,6 +33,8 @@ public class Libro {
 		this.inventario = inventario;
 		this.status = status;
 		this.portada = portada;
+		
+		
 	}
 
 	public int getIdLibro() {
@@ -104,11 +109,11 @@ public class Libro {
 		this.status = status;
 	}
 
-	public Blob getPortada() {
+	public InputStream getPortada() {
 		return portada;
 	}
 
-	public void setPortada(Blob portada) {
+	public void setPortada(InputStream portada) {
 		this.portada = portada;
 	}
 
@@ -121,4 +126,6 @@ public class Libro {
 	
 	
 	
-}
+	
+	
+	}

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.apache.log4j.Logger;
 
 import edu.tesji.library.entities.Libro;
@@ -28,7 +29,7 @@ public class LibroDAO {
 			+ ",preciocompra,inventario,status, portada) VALUES (?,?,?,?,?,?,?,?,?)";
 
 	private static final String QUERY_UPDATE_LIBRO = "UPDATE libro SET titulo =?,isbn = ?, descripción = ?,paginas = ?, precioventa =?, preciocompra =?, inventario =?,status =?, portada=? WHERE idlibro=?";
-
+private String QUERY_SELECT_PORTAIMG = "SELECT portada FROM libro";
 	
 	public List<Libro> selectAllLibros() {
 		List<Libro> libroList = new ArrayList<Libro>();
@@ -43,7 +44,7 @@ public class LibroDAO {
 				Libro libro = new Libro(resultSet.getInt("idlibro"),  resultSet.getString("titulo"),resultSet.getString("isbn"),
 						resultSet.getString("descripcion"), resultSet.getString("paginas"),
 						resultSet.getBigDecimal("precioventa"),resultSet.getBigDecimal("preciocompra"),
-						resultSet.getInt("inventario"), resultSet.getBoolean("status"),resultSet.getBlob("portada"));
+						resultSet.getInt("inventario"), resultSet.getBoolean("status"),resultSet.getBinaryStream("portada"));
 				libroList.add(libro);
 			}
 		} catch (SQLException e) {
@@ -75,8 +76,8 @@ public class LibroDAO {
 			while (resultSet.next()) {
 				Libro libro = new Libro(resultSet.getInt("idlibro"),  resultSet.getString("titulo"),resultSet.getString("isbn"),
 						resultSet.getString("descripcion"), resultSet.getString("paginas"),
-						resultSet.getBigDecimal("precioventa"), resultSet.getBigDecimal("preciocompra"),
-						resultSet.getInt("inventario"), resultSet.getBoolean("status"), resultSet.getBlob("portada"));
+						resultSet.getBigDecimal("precioventa"),resultSet.getBigDecimal("preciocompra"),
+						resultSet.getInt("inventario"), resultSet.getBoolean("status"),resultSet.getBinaryStream("portada"));
 				libroList.add(libro);
 			}
 		} catch (SQLException e) {
@@ -223,4 +224,6 @@ public class LibroDAO {
 	}
 		return updatedRows;
 	}
+	
+
 }
