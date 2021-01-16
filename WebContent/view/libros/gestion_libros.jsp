@@ -170,6 +170,8 @@ function mostrar_alert() {
 								<th scope="col">Inventario</th>
 								<th scope="col">Precio Compra</th>
 								<th scope="col">Precio Venta</th>
+								<th scope="col">Autor</th>
+								<th scope="col">Editorial</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -183,7 +185,8 @@ function mostrar_alert() {
 									<td>${libros.inventario}</td>
 									<td>$ ${libros.precioCompra}</td>
 									<td>$ ${libros.precioVenta}</td>
-
+									<td>${libros.autor}</td>
+									<td>${libros.editorial}</td>
 								</tr>
 							</c:forEach>
 						</tbody>

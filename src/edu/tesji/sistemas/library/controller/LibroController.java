@@ -45,42 +45,32 @@ public class LibroController extends HttpServlet {
 		String descripcion = request.getParameter("descripcionTXT");
 		String paginas = request.getParameter("numeroPaginasTXT");
 		int inventario = Integer
-				.parseInt(request.getParameter("inventarioTXT") == null ? "0" : request.getParameter("inventarioTXT"));
+				.parseInt(request.getParameter("inventarioTXT") == null ||
+						request.getParameter("inventarioTXT").trim().isEmpty() ? "0" : request.getParameter("inventarioTXT"));
 		BigDecimal precioVenta = new BigDecimal(
-				request.getParameter("precioVentaTXT") == null ? "0" : request.getParameter("precioVentaTXT"));
+				request.getParameter("precioVentaTXT") == null ||
+						request.getParameter("precioVentaTXT").trim().isEmpty() ? "0" : request.getParameter("precioVentaTXT"));
 		BigDecimal precioCompra = new BigDecimal(
-				request.getParameter("precioComprasTXT") == null ? "0" : request.getParameter("precioComprasTXT"));
+				request.getParameter("precioComprasTXT") == null ||
+						request.getParameter("precioComprasTXT").trim().isEmpty() ? "0" : request.getParameter("precioComprasTXT"));
 //		String portada = request.getParameter("portadaTXT");
 
-//	int idLibro, String titulo, String isbn, String descripcion, String paginas, BigDecimal precioVenta,
-//	BigDecimal precioCompra, int inventario, boolean status, InputStream portada
-
-		Libro libroEntity = new Libro(0, titulo, isbn, descripcion, paginas, precioVenta, precioCompra, inventario,
-				true, null);
-
+		
 		switch (action) {
 
 		case SessionAttributes.ACTION_INIT:
-			log.info("######Cargando catálogo de libros");
-			List<Libro> listLib = loadLibros();
-			log.info("#### Cargando catalogo editoriales ....");
-			List<Editorial> list = loadEditoriales();
-			log.info("Número de registros a cargar:" + list.size());
-
-			log.info("#### Cargando catalogo de autores ....");
-			List<Autor> lista = loadAutores();
-			log.info("Número de registros a cargar" + lista.size());
-
-			request.setAttribute("libros", listLib);
-			request.setAttribute("autores", lista);
-			request.setAttribute("editoriales", list);
+			loadLibrosAndCatalogs(request);
 			request.getRequestDispatcher("/view/libros/gestion_libros.jsp").forward(request, response);
 			break;
 
 		case SessionAttributes.ACTION_FIND:
+			Libro libroEntity = new Libro(0, titulo, isbn, descripcion, paginas, precioVenta, precioCompra, inventario,
+					true, null, Integer.parseInt(idAutorSelected), Integer.parseInt(idEditorialSelected));
+
 			log.info("Buscando registro" + libroEntity.toString());
 			List<Libro> listaFindL = find(libroEntity);
 			request.setAttribute("libros", listaFindL);
+			loadCatalogs(request);
 			request.getRequestDispatcher("/view/libros/gestion_libros.jsp").forward(request, response);
 
 		default:
@@ -88,7 +78,10 @@ public class LibroController extends HttpServlet {
 
 		case SessionAttributes.ACTION_SAVE:
 			log.info("#############Guardando registro");
-			int affectedRows = insertLibro(libroEntity);
+			Libro libroEntitySave = new Libro(0, titulo, isbn, descripcion, paginas, precioVenta, precioCompra, inventario,
+					true, null, Integer.parseInt(idAutorSelected), Integer.parseInt(idEditorialSelected));
+
+			int affectedRows = insertLibro(libroEntitySave);
 			String message;
 			if (affectedRows == 1) {
 				message = "Registro agregado exitosamente";
@@ -96,9 +89,7 @@ public class LibroController extends HttpServlet {
 				message = "Registro no agregado exitosamente";
 			}
 			request.setAttribute("message", message);
-			// guardar en tablas asociativas
-			List<Libro> listaLib = loadLibros();
-			request.setAttribute("libros", listaLib);
+			loadLibrosAndCatalogs(request);
 			request.getRequestDispatcher("/view/libros/gestion_libros.jsp").forward(request, response);
 
 			break;
@@ -106,8 +97,8 @@ public class LibroController extends HttpServlet {
 	}
 
 	private int insertLibro(Libro libroEntity) {
-		// TODO Auto-generated method stub
-		return 0;
+		LibroDAO dao = new LibroDAO();
+		return dao.insertLibro(libroEntity);
 	}
 
 	private List<Libro> find(Libro libroEntity) {
@@ -134,5 +125,25 @@ public class LibroController extends HttpServlet {
 	private List<Editorial> loadEditoriales() {
 		EditorialDAO dao = new EditorialDAO();
 		return dao.selectAllEditorial();
+	}
+
+	private void loadLibrosAndCatalogs(HttpServletRequest request) {
+		log.info("######Cargando catálogo de libros");
+		List<Libro> listLib = loadLibros();
+		request.setAttribute("libros", listLib);
+		loadCatalogs(request);
+	}
+
+	private void loadCatalogs(HttpServletRequest request) {
+		log.info("#### Cargando catalogo editoriales ....");
+		List<Editorial> list = loadEditoriales();
+		log.info("Número de registros a cargar:" + list.size());
+
+		log.info("#### Cargando catalogo de autores ....");
+		List<Autor> lista = loadAutores();
+		log.info("Número de registros a cargar" + lista.size());
+
+		request.setAttribute("autores", lista);
+		request.setAttribute("editoriales", list);
 	}
 }

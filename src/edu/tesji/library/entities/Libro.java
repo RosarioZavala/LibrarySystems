@@ -2,11 +2,6 @@ package edu.tesji.library.entities;
 
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.sql.Blob;
-
-import org.xml.sax.InputSource;
-
-
 
 public class Libro {
 	private int idLibro;
@@ -19,9 +14,14 @@ public class Libro {
 	private int inventario;
 	private boolean status;
 	private InputStream portada;
-	
+	private int idAutor;
+	private int idEditorial;
+	private String autor;
+	private String editorial;
+
 	public Libro(int idLibro, String titulo, String isbn, String descripcion, String paginas, BigDecimal precioVenta,
-			BigDecimal precioCompra, int inventario, boolean status, InputStream portada) {
+			BigDecimal precioCompra, int inventario, boolean status, InputStream portada, int idAutor,
+			int idEditorial) {
 		super();
 		this.idLibro = idLibro;
 		this.titulo = titulo;
@@ -33,8 +33,28 @@ public class Libro {
 		this.inventario = inventario;
 		this.status = status;
 		this.portada = portada;
-		
-		
+		this.idAutor = idAutor;
+		this.idEditorial = idEditorial;
+	}
+	
+	public Libro(int idLibro, String titulo, String isbn, String descripcion, String paginas, BigDecimal precioVenta,
+			BigDecimal precioCompra, int inventario, boolean status, InputStream portada, int idAutor,
+			int idEditorial, String autor, String editorial) {
+		super();
+		this.idLibro = idLibro;
+		this.titulo = titulo;
+		this.isbn = isbn;
+		this.descripcion = descripcion;
+		this.paginas = paginas;
+		this.precioVenta = precioVenta;
+		this.precioCompra = precioCompra;
+		this.inventario = inventario;
+		this.status = status;
+		this.portada = portada;
+		this.idAutor = idAutor;
+		this.idEditorial = idEditorial;
+		this.autor = autor;
+		this.editorial = editorial;
 	}
 
 	public int getIdLibro() {
@@ -117,15 +137,44 @@ public class Libro {
 		this.portada = portada;
 	}
 
+	public int getIdEditorial() {
+		return idEditorial;
+	}
+
+	public void setIdEditorial(int idEditorial) {
+		this.idEditorial = idEditorial;
+	}
+
+	public int getIdAutor() {
+		return idAutor;
+	}
+
+	public void setIdAutor(int idAutor) {
+		this.idAutor = idAutor;
+	}
+
+	public String getAutor() {
+		return autor;
+	}
+
+	public void setAutor(String autor) {
+		this.autor = autor;
+	}
+
+	public String getEditorial() {
+		return editorial;
+	}
+
+	public void setEditorial(String editorial) {
+		this.editorial = editorial;
+	}
+
 	@Override
 	public String toString() {
 		return "Libro [idLibro=" + idLibro + ", titulo=" + titulo + ", isbn=" + isbn + ", descripcion=" + descripcion
 				+ ", paginas=" + paginas + ", precioVenta=" + precioVenta + ", precioCompra=" + precioCompra
-				+ ", inventario=" + inventario + ", status=" + status + ", portada=" + portada + "]";
+				+ ", inventario=" + inventario + ", status=" + status + ", portada=" + portada + ", idAutor=" + idAutor
+				+ ", idEditorial=" + idEditorial + ", autor=" + autor + ", editorial=" + editorial + "]";
 	}
-	
-	
-	
-	
-	
-	}
+
+}
