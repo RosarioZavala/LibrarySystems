@@ -40,8 +40,10 @@ protected void doGet (HttpServletRequest request, HttpServletResponse response) 
 	
 	String isbn = request.getParameter("isbnTXT");
 	String titulo = request.getParameter("tituloTXT");
-	String id = request.getParameter("editorialSelect");
-	log.info(id);
+	String idEditorialSelected = request.getParameter("editorialSelect");
+	String idAutorSelected = request.getParameter("autorSelect");
+	log.info("idEditorialSelected: " + idEditorialSelected);
+	log.info("idAutorSelected: " + idAutorSelected);
 	String descripcion = request.getParameter("descripcionTXT");
 	String paginas = request.getParameter("numeroPaginasTXT");
 	int inventario = Integer.parseInt(

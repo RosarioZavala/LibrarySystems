@@ -18,7 +18,7 @@ function save_libro() {
   frm.submit();
 }
 
-function find_libro()) {
+function find_libro() {
     this.document.getElementById("action").value = 'find';
     var frm = this.document.getElementById("librosForm");
     frm.submit();
@@ -114,7 +114,7 @@ function mostrar_alert() {
 				<div class="col-6" style="margin-top: 20px">
 					<div class="p-3">
 						<label for="autorSelect" class="form-label">Selecciona
-							Autor</label> <select id="editorialSelect" name="autorSelect"
+							Autor</label> <select id="autorSelect" name="autorSelect"
 							class="form-select" aria-label="Default select example">
 							<c:forEach var="autor" items="${autores}">
 								<option value="${autor.idautor}">${autor.nombreCompleto}</option>
