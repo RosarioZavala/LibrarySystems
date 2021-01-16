@@ -37,7 +37,7 @@ public class LibroDAO {
 			+ " INNER JOIN editorial ed ON li.ideditorial = ed.ideditorial WHERE 1=1 ";
 
 ///			SELECT  titulo,isbn,descripcion,paginas,preciocompra,inventario FROM libro WHERE isbn LIKE '%84303270%'
-	private static final String QUERY_INSERT_LIBRO = "INSERT INTO libro (titulo,isbn,descripcion,paginas,precioventa"
+	private static final String QUERY_INSERT_LIBRO = "INSERT INTO libro (isbn,titulo,descripcion,paginas,precioventa"
 			+ ",preciocompra,inventario,status, portada, idautor, ideditorial) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
 	private static final String QUERY_UPDATE_LIBRO = "UPDATE libro SET titulo =?,isbn = ?, descripción = ?,paginas = ?"

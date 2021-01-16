@@ -176,17 +176,17 @@ function mostrar_alert() {
 						</thead>
 						<tbody>
 
-							<c:forEach var="libros" items="${libros }">
-								<tr id="${libros.idLibro }">
-									<td>${libros.isbn}</td>
-									<td>${libros.titulo}</td>
-									<td>${libros.descripcion}</td>
-									<td>${libros.paginas} pág</td>
-									<td>${libros.inventario}</td>
-									<td>$ ${libros.precioCompra}</td>
-									<td>$ ${libros.precioVenta}</td>
-									<td>${libros.autor}</td>
-									<td>${libros.editorial}</td>
+							<c:forEach var="libro" items="${libros}">
+								<tr id="${libro.idLibro}">
+									<td>${libro.isbn}</td>
+									<td>${libro.titulo}</td>
+									<td>${libro.descripcion}</td>
+									<td>${libro.paginas} pág</td>
+									<td>${libro.inventario}</td>
+									<td>$ ${libro.precioCompra}</td>
+									<td>$ ${libro.precioVenta}</td>
+									<td>${libro.autor}</td>
+									<td>${libro.editorial}</td>
 								</tr>
 							</c:forEach>
 						</tbody>
