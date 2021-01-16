@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-
 import edu.tesji.library.entities.Editorial;
 
 public class EditorialDAO {
@@ -18,6 +17,9 @@ public class EditorialDAO {
 	private ResultSet resultSet;
 	private static final String QUERY_SELECT_ALL_EDITORIAL = "SELECT ideditorial,nombreeditorial,lugardeimpresion "
 			+ " FROM editorial ORDER BY nombreeditorial ASC";
+	
+	private String QUERY_SELECT_EDITORIAL_BY_FILTERS = "SELECT ideditorial,nombreeditorial,lugardeimpresion  FROM editorial WHERE 1=1 ";
+	
 	private static final String QUERY_SELECT_EDITORIAL_BY_ID = "SELECT ideditorial,nombreeditorial,lugardeimpresion "
 			+ " FROM editorial WHERE ideditorial = ? ORDER BY nombreeditorial ASC";
 	private static final String QUERY_SELECT_EDITORIAL_BY_NOMBREEDITORIAL = "SELECT ideditorial,nombreeditorial,lugardeimpresion "
@@ -237,5 +239,84 @@ public class EditorialDAO {
 			}
 		}
 		return  updatedRows;
+	}
+	
+	public List<Editorial> selectEditorialByFilters(Editorial editorialToFind) {
+		List<Editorial> editorialList = new ArrayList<Editorial>();
+		Connection connection = null;
+		try {
+			DBConnection dbConnection = new DBConnection();
+			connection = dbConnection.getConnection();
+			prepStatement = connection.prepareStatement(buildQuery(editorialToFind));
+			buildFilters(editorialToFind);
+
+			
+			resultSet = prepStatement.executeQuery();
+
+			while (resultSet.next()) {
+				Editorial editorial = new Editorial(resultSet.getInt("ideditorial"),
+						resultSet.getString("nombreeditorial"), resultSet.getString("lugardeimpresion"));
+				editorialList.add(editorial);
+			}
+		} catch (SQLException e) {
+			LOG.error("SQLException", e);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					LOG.error("SQLException", e);
+				}
+			}
+		}
+
+		return editorialList;
+	}
+	
+	private String buildQuery(Editorial editorialToFind) {
+		if (editorialToFind == null) {
+			return QUERY_SELECT_EDITORIAL_BY_FILTERS;
+		}
+		
+		if (editorialToFind.getIdEditorial() > 0) {
+
+			LOG.info(QUERY_SELECT_EDITORIAL_BY_FILTERS);
+			QUERY_SELECT_EDITORIAL_BY_FILTERS += " AND ideditorial = ?";
+		}
+
+		if (editorialToFind.getNombreEditorial() != null && !editorialToFind.getNombreEditorial().trim().isEmpty()) {
+			QUERY_SELECT_EDITORIAL_BY_FILTERS += " AND nombreeditorial LIKE ?";
+		}
+
+		if (editorialToFind.getLugarDeImpresion() != null && !editorialToFind.getLugarDeImpresion().trim().isEmpty()) {
+			QUERY_SELECT_EDITORIAL_BY_FILTERS += " AND lugardeimpresion LIKE ?";
+		}
+
+	
+		LOG.info( QUERY_SELECT_EDITORIAL_BY_FILTERS);
+		return QUERY_SELECT_EDITORIAL_BY_FILTERS;
+	
+	}
+
+	private void buildFilters(Editorial editorialToFind) throws SQLException {
+		if (editorialToFind == null) {
+			return ;
+		}
+		
+		int counter = 1;
+		
+		if (editorialToFind.getIdEditorial() > 0) {
+			prepStatement.setInt(counter++, editorialToFind.getIdEditorial());
+		}
+
+		if (editorialToFind.getNombreEditorial() != null && !editorialToFind.getNombreEditorial().trim().isEmpty()) {
+			prepStatement.setString(counter++, "%" + editorialToFind.getNombreEditorial() + "%");
+		}
+
+		if (editorialToFind.getLugarDeImpresion() != null && !editorialToFind.getLugarDeImpresion().trim().isEmpty()) {
+			prepStatement.setString(counter++, "%" + editorialToFind.getLugarDeImpresion() + "%");	
+			}
+
+				
 	}
 }

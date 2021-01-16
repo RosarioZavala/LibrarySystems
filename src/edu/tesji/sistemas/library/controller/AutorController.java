@@ -59,10 +59,32 @@ public class AutorController extends HttpServlet {
 			
 			break;
 		case SessionAttributes.ACTION_DELETE:
-			deleteAutor(autorEntity);
+			log.info("Eliminando registro");
+			int affectedRow =deleteAutor(autorEntity);
+			String messageError;
+			if(affectedRow == 1) {
+				messageError = "Registro eliminado exitosamente";
+			}else {
+				messageError = "Registro no eliminado exitosamente";
+			}
+			request.setAttribute("messageError", messageError);
+			
+			List<Autor>listaD = loadAutores();
+			request.setAttribute("autores", listaD);
+			
+			request.getRequestDispatcher("/view/autor/gestion_autor.jsp").forward(request, response);
+			
 			break;
 		case SessionAttributes.ACTION_UPDATE:
 				update(autorEntity);
+			break;
+				
+		case SessionAttributes.ACTION_FIND:
+			log.info("Buscando Registro: " + autorEntity.toString());
+			List<Autor>listaFind = find(autorEntity);
+			request.setAttribute("autores", listaFind);
+			request.getRequestDispatcher("/view/autor/gestion_autor.jsp").forward(request, response);
+			break;
 		default:
 			break;
 		}
@@ -100,5 +122,10 @@ public class AutorController extends HttpServlet {
 		
 	}
 
+	private List<Autor> find(Autor autorEntity) {
+		AutorDAO dao = new AutorDAO();
+		return dao.selectAutorByFilters(autorEntity);
+		
+	}
 
 }

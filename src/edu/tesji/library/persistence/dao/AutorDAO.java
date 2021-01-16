@@ -27,9 +27,11 @@ public class AutorDAO {
 	private static final String QUERY_SELECT_AUTOR_BY_NACIONALIDAD = "SELECT idautor, claveautor,nombrecompleto,nacionalidad "
 			+ "FROM autor WHERE nacionalidad LIKE ?";
 	private static final String QUERY_INSERT_AUTOR = "INSERT INTO autor (claveautor,nombrecompleto, nacionalidad) values (?,?,?) ";
-	private static final String QUERY_DELETE_AUTOR = "DELETE  autor WHERE idautor =?";
+	private static final String QUERY_DELETE_AUTOR = "DELETE  FROM autor WHERE idautor =?";
 	private static final String QUERY_UPDATE_AUTOR = "UPDATE autor SET claveautor =?,nombrecompleto = ?, nacionalidad = ? WHERE idautor=?";
-
+	private String querySelectAutorByFilters = "SELECT idautor, claveautor,nombrecompleto,nacionalidad"
+			+ " FROM autor WHERE 1=1 ";
+	
 	public List<Autor> selectAllAutor() {
 		List<Autor> autorList = new ArrayList<Autor>();
 		Connection connection = null;
@@ -269,5 +271,85 @@ public class AutorDAO {
 		return updatedRows;
 
 	}
+	
+	public List<Autor> selectAutorByFilters(Autor autorToFind) {
+		List<Autor> autorList = new ArrayList<Autor>();
+		Connection connection = null;
+		try {
+			DBConnection dbConnection = new DBConnection();
+			connection = dbConnection.getConnection();
+			prepStatement = connection.prepareStatement(buildQuery(autorToFind));
+			buildFilters(autorToFind);
 
+			resultSet = prepStatement.executeQuery();
+
+			while (resultSet.next()) {
+				Autor autor = new Autor(resultSet.getInt("idautor"),  resultSet.getString("claveautor")
+						,resultSet.getString("nombrecompleto"),
+						resultSet.getString("nacionalidad"));
+				autorList.add(autor);
+			}
+		} catch (SQLException e) {
+			LOG.error("SQLException", e);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					LOG.error("SQLException", e);
+				}
+			}
+		}
+
+		return autorList;
+	}
+	
+	private String buildQuery(Autor autorToFind) {
+		if (autorToFind == null) {
+			return querySelectAutorByFilters;
+		}
+		
+		if (autorToFind.getIdautor() > 0) {
+			querySelectAutorByFilters += " AND idautor = ?";
+		}
+
+		if (autorToFind.getClaveautor() != null && !autorToFind.getClaveautor().trim().isEmpty()) {
+			querySelectAutorByFilters += " AND claveautor = ?";
+		}
+
+		if (autorToFind.getNombreCompleto() != null && !autorToFind.getNombreCompleto().trim().isEmpty()) {
+			querySelectAutorByFilters += " AND nombrecompleto LIKE ?";
+		}
+
+		if (autorToFind.getNacionalidad() != null && !autorToFind.getNacionalidad().trim().isEmpty()) {
+			querySelectAutorByFilters += " AND nacionalidad LIKE ?";
+		}
+		
+		return querySelectAutorByFilters;
+	}
+
+	private void buildFilters(Autor autorToFind) throws SQLException {
+		if (autorToFind == null) {
+			return ;
+		}
+		
+		int counter = 1;
+		
+		if (autorToFind.getIdautor() > 0) {
+			prepStatement.setInt(counter++, autorToFind.getIdautor());
+		}
+
+		if (autorToFind.getClaveautor() != null && !autorToFind.getClaveautor().trim().isEmpty()) {
+			prepStatement.setString(counter++, autorToFind.getClaveautor());
+		}
+
+		if (autorToFind.getNombreCompleto() != null && !autorToFind.getNombreCompleto().trim().isEmpty()) {
+			prepStatement.setString(counter++, "%" + autorToFind.getNombreCompleto() + "%");		}
+
+		if (autorToFind.getNacionalidad() != null && !autorToFind.getNacionalidad().trim().isEmpty()) {
+			prepStatement.setString(counter++, "%" + autorToFind.getNacionalidad() + "%");		
+		}
+		
+	}
+	
 }

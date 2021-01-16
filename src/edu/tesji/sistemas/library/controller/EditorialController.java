@@ -37,20 +37,46 @@ public class EditorialController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         log.info("##### controller editorial: " + action);
-
+        String nombreEditorial = request.getParameter("nombreEditorialTXT");
+        String lugarImpresion = request.getParameter("lugarImpresionTXT");
+       
+        Editorial editorialEntity = new Editorial(0,nombreEditorial,lugarImpresion );
+        		
         switch (action) {
         case SessionAttributes.ACTION_INIT:
 			log.info("##### Cargando catálogo de Editoriales... ");
 			List<Editorial> list = loadEditoriales();
-			log.info("Número de registros a cargar: " + list.size());
-
 			request.setAttribute("editoriales", list);
 			request.getRequestDispatcher("/view/editorial/gestion_editorial.jsp").forward(request, response);
+		
+			log.info("Número de registros a cargar: " + list.size());
+
+			
 			break;
         case SessionAttributes.ACTION_SAVE:
 			log.info("##### Guardando Editorial... ");
+			int affectedRows = insertEditorial(editorialEntity);
+			String message;
+			if(affectedRows == 1) {
+				message = "Registro insertado exitosamente.";
+			} else {
+				message = "Registro NO insertado exitosamente.";
+			}
+			request.setAttribute("mesage", message);
+			
+			List<Editorial> lista= loadEditoriales();
+			request.setAttribute("editoriales", lista);
+			request.getRequestDispatcher("/view/editorial/gestion_editorial.jsp").forward(request, response);
+			
+			log.info("#######Número de registros agregados" + editorialEntity);
 			break;
 
+		case SessionAttributes.ACTION_FIND:
+			log.info("Buscando Registro: " + editorialEntity.toString());
+			List<Editorial>listaFind = find(editorialEntity);
+			request.setAttribute("editoriales", listaFind);
+			request.getRequestDispatcher("/view/editorial/gestion_editorial.jsp").forward(request, response);
+		break;
 		default:
 			break;
 		}
@@ -71,6 +97,23 @@ public class EditorialController extends HttpServlet {
 		return dao.selectAllEditorial();
 		
 	}
-        
+    
+	private List<Editorial> find(Editorial editorialEntity) {
+		EditorialDAO dao = new EditorialDAO();
+		return dao.selectEditorialByFilters(editorialEntity);
+		
+	}
+	
+
+
+	private int insertEditorial(Editorial editorialEntity) {
+		// TODO Auto-generated method stub
+	EditorialDAO dao = new EditorialDAO();
+	return dao.insertEditorial(editorialEntity);
+	
+	
+	
+
+	}    
 }
 

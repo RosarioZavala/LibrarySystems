@@ -16,12 +16,32 @@
       var frm = this.document.getElementById("autorForm");
       frm.submit();
 	}
+	
+	function find_autor()
+	{
+      this.document.getElementById("action").value = 'find';
+      var frm = this.document.getElementById("autorForm");
+      frm.submit();
+	}
 
 	function mostrar_alert()
 	{
 		var msg = '${message}';
 		if (msg.length > 1) {
 			alert(msg);	
+		}
+	}
+	function delete_autor()
+	{
+		this.document.getElementById("action").value = 'delete';
+		var form = this.document.getElementById("autorForm");
+		form.submit();
+	}
+	function mostrar_alert_delete()
+	{
+		var msg ='${messageError}';
+		if(msg.length >1){
+			alert(msg);
 		}
 	}
 	
@@ -110,7 +130,8 @@
 				<div class="col-2">
 					<div class="p-3">
 
-						<button id="btnConsultar" type="submit" class="btn btn-info">
+						<button id="btnConsultar" type="button" class="btn btn-info"
+						onclick="find_autor()">
 							<span class="glyphicon glyphicon-search"></span> Consultar
 						</button>
 
@@ -134,7 +155,7 @@
 				<div class="col-2">
 					<div class="p-3">
 
-						<button id="btnActualizar" type="submit" class="btn btn-info">
+						<button id="btnActualizar" class="btn btn-info" >
 							<span class="glyphicon glyphicon-search"></span> Actualizar
 						</button>
 
@@ -145,7 +166,7 @@
 
 				<div class="col-2">
 					<div class="p-3">
-						<button id="btnEliminar" type="submit" class="btn btn-info">
+						<button type="button" id="btnEliminar"  type="submit" class="btn btn-info" onclick="delete_autor()">
 							<span class="glyphicon glyphicon-search"></span> Eliminar
 						</button>
 					</div>
@@ -160,6 +181,10 @@
 					</div>
 
 				</div>
+				</div>
+
+				</div>
+				
 				
 	</form>
 
