@@ -87,7 +87,31 @@ public class AutorController extends HttpServlet {
 			break;
 			
 		case SessionAttributes.ACTION_UPDATE:
-				update(autorEntity);
+			log.info("Actualizando registro");
+					
+			if (idAutorForDeleteOrUpdate == null || idAutorForDeleteOrUpdate.trim().isEmpty()) {
+				message = "Debe de seleccionar un registro para Actualizarlo.";
+				List<Autor>listaUpdate= loadAutores();
+				request.setAttribute("autores", listaUpdate);
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/view/autor/gestion_autor.jsp").forward(request, response);
+				break;
+			}
+			autorEntity.setIdautor(Integer.parseInt(idAutorForDeleteOrUpdate));
+			
+			int affectedRowsUp = updateAutor(autorEntity);
+			if (affectedRowsUp == 1) {
+				
+				message = "Registro Actualizado exitosamente.";
+			} else {
+				message = "Registro NO Actualizado.";
+			}
+			request.setAttribute("message", message);
+
+			List<Autor>listaUpdate = loadAutores();
+			request.setAttribute("autores", listaUpdate);
+			request.getRequestDispatcher("/view/autor/gestion_autor.jsp").forward(request, response);
+			
 			break;
 				
 		case SessionAttributes.ACTION_FIND:
@@ -97,12 +121,17 @@ public class AutorController extends HttpServlet {
 			request.getRequestDispatcher("/view/autor/gestion_autor.jsp").forward(request, response);
 			break;
 		default:
-			break;
+			
 		}
 
 	}
 
 	
+
+	private int updateAutor(Autor autorEntity) {
+		AutorDAO dao = new AutorDAO();
+		return dao.updateAutor(autorEntity);
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -113,13 +142,7 @@ public class AutorController extends HttpServlet {
 		AutorDAO dao = new AutorDAO();
 		return dao.insertAutor(autorEntity);
 	}
-	
 
-	private int update(Autor autorEntity) {
-		AutorDAO dao = new AutorDAO();
-		return dao.updateAutor(autorEntity);
-		
-	}
 
 	private int deleteAutor(Autor autorEntity) {
 		AutorDAO dao = new AutorDAO();
