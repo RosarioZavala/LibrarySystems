@@ -1,6 +1,5 @@
 package edu.tesji.library.entities;
 
-import java.io.InputStream;
 import java.math.BigDecimal;
 
 public class Libro {
@@ -13,14 +12,17 @@ public class Libro {
 	private BigDecimal precioCompra;
 	private int inventario;
 	private boolean status;
-	private InputStream portada;
 	private int idAutor;
 	private int idEditorial;
 	private String autor;
 	private String editorial;
 
+	public Libro() {
+		// empty constructor
+	}
+	
 	public Libro(int idLibro, String titulo, String isbn, String descripcion, String paginas, BigDecimal precioVenta,
-			BigDecimal precioCompra, int inventario, boolean status, InputStream portada, int idAutor,
+			BigDecimal precioCompra, int inventario, boolean status, int idAutor,
 			int idEditorial) {
 		super();
 		this.idLibro = idLibro;
@@ -32,13 +34,12 @@ public class Libro {
 		this.precioCompra = precioCompra;
 		this.inventario = inventario;
 		this.status = status;
-		this.portada = portada;
 		this.idAutor = idAutor;
 		this.idEditorial = idEditorial;
 	}
 	
 	public Libro(int idLibro, String titulo, String isbn, String descripcion, String paginas, BigDecimal precioVenta,
-			BigDecimal precioCompra, int inventario, boolean status, InputStream portada, int idAutor,
+			BigDecimal precioCompra, int inventario, boolean status, int idAutor,
 			int idEditorial, String autor, String editorial) {
 		super();
 		this.idLibro = idLibro;
@@ -50,13 +51,41 @@ public class Libro {
 		this.precioCompra = precioCompra;
 		this.inventario = inventario;
 		this.status = status;
-		this.portada = portada;
 		this.idAutor = idAutor;
 		this.idEditorial = idEditorial;
 		this.autor = autor;
 		this.editorial = editorial;
 	}
-
+	public Libro(int idLibro, String titulo, String isbn, String descripcion, BigDecimal precioVenta,
+			int inventario, boolean status,int idAutor,
+			int idEditorial, String autor, String editorial) {
+		super();
+		this.idLibro = idLibro;
+		this.titulo = titulo;
+		this.isbn = isbn;
+		this.descripcion = descripcion;
+		this.precioVenta = precioVenta;
+		this.inventario = inventario;
+		this.status = status;
+		this.idAutor = idAutor;
+		this.idEditorial = idEditorial;
+		this.autor = autor;
+		this.editorial = editorial;
+	}
+	/**
+	 * noa airve para buscar en la pantalla del cliente, por titulo, autor o editorial
+	 * @param titulo
+	 * @param autor
+	 * @param editorial
+	 */
+	public Libro(String tituloAutorEditorialFilter) {
+		super();
+		this.titulo = tituloAutorEditorialFilter;
+		this.autor = tituloAutorEditorialFilter;
+		this.editorial = tituloAutorEditorialFilter;
+	}
+	
+	
 	public int getIdLibro() {
 		return idLibro;
 	}
@@ -129,14 +158,6 @@ public class Libro {
 		this.status = status;
 	}
 
-	public InputStream getPortada() {
-		return portada;
-	}
-
-	public void setPortada(InputStream portada) {
-		this.portada = portada;
-	}
-
 	public int getIdEditorial() {
 		return idEditorial;
 	}
@@ -173,7 +194,7 @@ public class Libro {
 	public String toString() {
 		return "Libro [idLibro=" + idLibro + ", titulo=" + titulo + ", isbn=" + isbn + ", descripcion=" + descripcion
 				+ ", paginas=" + paginas + ", precioVenta=" + precioVenta + ", precioCompra=" + precioCompra
-				+ ", inventario=" + inventario + ", status=" + status + ", portada=" + portada + ", idAutor=" + idAutor
+				+ ", inventario=" + inventario + ", status=" + status + ", idAutor=" + idAutor
 				+ ", idEditorial=" + idEditorial + ", autor=" + autor + ", editorial=" + editorial + "]";
 	}
 

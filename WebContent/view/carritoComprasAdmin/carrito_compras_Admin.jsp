@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,21 +12,34 @@
 <meta charset="ISO-8859-1">
 <title>Carrito Compras</title>
 
-
+<script>
+function selectRowForUpdate(value) {
+	this.document.getElementById("idStatusForUpdateBook").value = value;
+}
+function mostrar_alert() {
+	var msg = '${message}';
+	if (msg.length > 1) {
+		alert(msg);	
+	}
+}
+</script>
 </head>
-<body>
+<body onload="mostrar_alert()">
 	<jsp:include page="/view/login/menu_admin.jsp" flush="true" />
 	<br>
 	<h2 class="mx-auto" style="text-align: center;">Gestión de
 		Carritos de Compra</h2>
 	<br>
-	
+	<form action="carritoCompras" method="get" id="CarritoComprasForm" role="form" enctype="multipart/form-data">
+		<input type="hidden" id="action" name="action">
+		<input type="hidden" id="idStatusForUpdateBook"
+			name="idStatusForUpdateBook">
 	<div class="container overflow-hidden">
 			<div class="row gy-6">
 					<div class="col-4">
 				<div class="p-3">
 					<label for="periodoInTXT" class="form-label">Fecha
-						Inicial</label> <input type="date" class="form-control" id="periodoInTXT"
+						Inicial</label> <input type="date" class="form-control" id="periodoInTXT" name="periodoInTXT"
 						required>
 				</div>
 			</div>
@@ -31,7 +47,7 @@
 			<div class="col-4">
 				<div class="p-3">
 					<label for="periodoFinTXT" class="form-label">Fecha Final</label>
-					<input type="date" class="form-control" id="periodoFinTXT" required>
+					<input type="date" class="form-control" id="periodoFinTXT" name="periodoFinTXT" required>
 				</div>
 			</div>
 			</div>
@@ -47,21 +63,24 @@
 					<th scope="col">Lugar Entrega</th>
 					<th scope="col">Nombre comprador</th>
 					<th scope="col">Status</th>
+					<th scope="col">Editar</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<th scope="row">1</th>
-
-				</tr>
-				<tr>
-					<th scope="row">2</th>
-
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-
-				</tr>
+				<c:forEach var="carritocompras" items="${carritocompras}">
+								<tr id="${carritocompras.'idcarritocompras'}">
+									<td>${carritocompras.'foliocarritocompras'}</td>
+									<td>${carritocompras.'fechacompra'}</td>
+									<td>${carritocompras.'fechaentrega'}</td>
+									<td>${carritocompras.'lugarentrega'}</td>
+									<td>${carritocompras.'lugarentrega'}</td>
+									<td>${carritocompras.'nombrecomprador'} </td>
+									<td><input class="form-check-input" type="radio"
+										name="inlineRadioOptions" id="${libro.idLibro}"
+										onchange="selectRowForUpdateOrDelete(this.value)"
+										value="${libro.idLibro}"></td>
+								</tr>
+							</c:forEach>
 			</tbody>
 		</table>
 		<div class="container overflow-hidden">
@@ -95,5 +114,6 @@
 				</div>
 			</div>
 		</div>
+			</form>
 </body>
 </html>

@@ -13,8 +13,18 @@ public class CarritoCompras {
 	private String lugarEntrega;
 	private StatusCarritoCompra status;
 	private String folio;
+	private String idstatuscarrito;
 	private String nombrecomprador;
 	private List<DetalleCarritoCompras> detalleCCLis;
+	
+
+	public String getIdstatuscarrito() {
+		return idstatuscarrito;
+	}
+
+	public void setIdstatuscarrito(String idstatuscarrito) {
+		this.idstatuscarrito = idstatuscarrito;
+	}
 
 	public CarritoCompras(int idCarritoCompras, Date fechaCompra, Date fehaEntrega, String lugarEntrega
 			, StatusCarritoCompra status, String folio, String nombrecomprador) {
@@ -74,8 +84,8 @@ public class CarritoCompras {
 		return nombrecomprador;
 	}
 
-	public void setNombrecomprador(String nombrecmprador) {
-		this.nombrecomprador = nombrecmprador;
+	public void setNombrecomprador(String nombrecomprador) {
+		this.nombrecomprador = nombrecomprador;
 	}
 
 	public List<DetalleCarritoCompras> getDetalleCCLis() {
@@ -98,7 +108,7 @@ public class CarritoCompras {
 	public String toString() {
 		return "CarritoCompras [idCarritoCompras=" + idCarritoCompras + ", fechaCompra=" + fechaCompra
 				+ ", fehaEntrega=" + fehaEntrega + ", lugarEntrega=" + lugarEntrega + ", status=" + status
-				+ ", folio=" + folio + ", nombrecmprador=" + nombrecomprador + ", detalleCCLis=" + detalleCCLis + "]";
+				+ ", folio=" + folio + ", nombrecomprador=" + nombrecomprador + ", detalleCCLis=" + detalleCCLis + "]";
 	}
 
 }

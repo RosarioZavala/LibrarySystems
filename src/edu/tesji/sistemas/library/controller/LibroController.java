@@ -53,7 +53,9 @@ public class LibroController extends HttpServlet {
 		BigDecimal precioCompra = new BigDecimal(
 				request.getParameter("precioComprasTXT") == null ||
 						request.getParameter("precioComprasTXT").trim().isEmpty() ? "0" : request.getParameter("precioComprasTXT"));
-//		String portada = request.getParameter("portadaTXT");
+		//String idAutor = request.getParameter("idAutorSelected");
+		//String idEditorial = request.getParameter("idEditorialSelected");
+		String idLibroForDeleteOrUpdate = request.getParameter("idLibroForDeleteOrUpdate");
 
 		
 		switch (action) {
@@ -64,8 +66,10 @@ public class LibroController extends HttpServlet {
 			break;
 
 		case SessionAttributes.ACTION_FIND:
+			
+	
 			Libro libroEntity = new Libro(0, titulo, isbn, descripcion, paginas, precioVenta, precioCompra, inventario,
-					true, null, Integer.parseInt(idAutorSelected), Integer.parseInt(idEditorialSelected));
+					true, Integer.parseInt(idAutorSelected), Integer.parseInt(idEditorialSelected));
 
 			log.info("Buscando registro" + libroEntity.toString());
 			List<Libro> listaFindL = find(libroEntity);
@@ -79,7 +83,7 @@ public class LibroController extends HttpServlet {
 		case SessionAttributes.ACTION_SAVE:
 			log.info("#############Guardando registro");
 			Libro libroEntitySave = new Libro(0, titulo, isbn, descripcion, paginas, precioVenta, precioCompra, inventario,
-					true, null, Integer.parseInt(idAutorSelected), Integer.parseInt(idEditorialSelected));
+					true, Integer.parseInt(idAutorSelected), Integer.parseInt(idEditorialSelected));
 
 			int affectedRows = insertLibro(libroEntitySave);
 			String message;
@@ -93,7 +97,78 @@ public class LibroController extends HttpServlet {
 			request.getRequestDispatcher("/view/libros/gestion_libros.jsp").forward(request, response);
 
 			break;
+			
+		case SessionAttributes.ACTION_UPDATE:
+			log.info("Actualizando registro");
+			Libro libroEntityU = new Libro(0, titulo, isbn, descripcion, paginas, precioVenta, precioCompra, inventario,
+					true, Integer.parseInt(idAutorSelected), Integer.parseInt(idEditorialSelected));
+					
+			if (idLibroForDeleteOrUpdate == null || idLibroForDeleteOrUpdate.trim().isEmpty()) {
+				message = "Debe de seleccionar un registro para Actualizarlooo.";
+				List<Libro>listaUpdate= loadLibros();
+				request.setAttribute("libros", listaUpdate);
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/view/libros/gestion_libros.jsp").forward(request, response);
+				break;
+			}
+			libroEntityU.setIdLibro(Integer.parseInt(idLibroForDeleteOrUpdate));
+			
+			int affectedRowsUp = updateLibro(libroEntityU);
+			if (affectedRowsUp == 1) {
+				
+				message = "Registro Actualizado exitosamente.";
+			} else {
+				message = "Registro NO Actualizado.";
+			}
+			request.setAttribute("message", message);
+
+			List<Libro>listaUpdate = loadLibros();
+			request.setAttribute("Libros", listaUpdate);
+			loadLibrosAndCatalogs(request);
+			request.getRequestDispatcher("/view/libros/gestion_libros.jsp").forward(request, response);
+			
+			break;
+		case SessionAttributes.ACTION_DELETE:
+			log.info("Actualizando registro");
+			Libro libroEntityD = new Libro(0, titulo, isbn, descripcion, paginas, precioVenta, precioCompra, inventario,
+					true, Integer.parseInt(idAutorSelected), Integer.parseInt(idEditorialSelected));
+					
+			if (idLibroForDeleteOrUpdate == null || idLibroForDeleteOrUpdate.trim().isEmpty()) {
+				message = "Debe de seleccionar un registro para Eliminarlo.";
+				List<Libro>listaDelete= loadLibros();
+				request.setAttribute("libros", listaDelete);
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/view/libros/gestion_libros.jsp").forward(request, response);
+				break;
+			}
+			libroEntityD.setIdLibro(Integer.parseInt(idLibroForDeleteOrUpdate));
+			
+			int affectedRowsDe = deleteLibro(libroEntityD);
+			if (affectedRowsDe == 1) {
+			message = "Registro Eliminado exitosamente.";
+			} else {
+				message = "Registro NO Elminado.";
+			}
+			request.setAttribute("message", message);
+
+			List<Libro>listaDelete = loadLibros();
+			request.setAttribute("Libros", listaDelete);
+			loadLibrosAndCatalogs(request);
+			request.getRequestDispatcher("/view/libros/gestion_libros.jsp").forward(request, response);
+			
+			break;
 		}
+	}
+
+	private int deleteLibro(Libro libroEntityD) {
+		LibroDAO dao = new LibroDAO();
+		return dao.deleteAutor(libroEntityD);
+		}
+
+	private int updateLibro(Libro libroEntityU) {
+		
+	LibroDAO dao = new LibroDAO();
+	return dao.updateLibro(libroEntityU);
 	}
 
 	private int insertLibro(Libro libroEntity) {

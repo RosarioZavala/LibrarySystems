@@ -148,7 +148,6 @@
 	  `inventario` int NOT NULL,
 	  `status` tinyint DEFAULT '1',
 	  `titulo` varchar(256) NOT NULL,
-	  `portada` blob,
 	  PRIMARY KEY (`idlibro`)
 	) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 	/*!40101 SET character_set_client = @saved_cs_client */;
@@ -263,7 +262,7 @@
 
 	LOCK TABLES `usuario` WRITE;
 	/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-	INSERT INTO `usuario` VALUES (1,'root','1234',1);
+	INSERT INTO `usuario` VALUES (1,'root','1234',1),(2,'Rosario','1234',1);
 	/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 	UNLOCK TABLES;
 	/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
