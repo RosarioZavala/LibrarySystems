@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,10 @@ public class CarritoComprasDAO {
 			+ " foliocarritocompras = ?";
 	private static final String QUERY_SELECT_CARRITOCOMPRAS_BY_NOMBRECOMPRADOR = "SELECT * FROM carritocompras WHERE"
 			+ " nombrecomprador LIKE ?";
-	private static final String QUERY_INSERT_CARRITOCOMPRAS = "INSERT INTO carritocompras ( fechacompra,fechaentrega, lugarentrega, idstatuscarrito,foliocarritocompras,nombrecomprador,) values (?,?,?,?,?,?)";
+	private static final String QUERY_INSERT_CARRITOCOMPRAS ="INSERT INTO carritocompras ( fechacompra,fechaentrega, lugarentrega, idstatuscarrito,foliocarritocompras,nombrecomprador) "
+			+ "values (?,?,?, ?, ?, ?)";
+
+//	private static final String QUERY_INSERT_CARRITOCOMPRAS = "INSERT INTO carritocompras ( fechacompra,fechaentrega, lugarentrega, idstatuscarrito,foliocarritocompras,nombrecomprador,) values (?,?,?,?,?,?)";
 	private static final String QUERY_DELET_CARRITOCOMPRAS = "DELETE FROM carritocompras WHERE idcarritocompras = ? ";
 	private static final String QUERY_UPDATE_CARRITOCOMPRAS = "UPDATE carritocompras SET fechacompra  = ? , fechaentrega = ?, lugarentrega = ?, idstatuscarrito = ?,foliocarritocompras = ?, nombrecomprador = ?  WHERE idcarritocompras= ?";
 
@@ -273,7 +277,7 @@ public class CarritoComprasDAO {
 		try {
 			DBConnection dbConnection = new DBConnection();
 			connection = dbConnection.getConnection();
-			prepStatement = connection.prepareStatement(QUERY_INSERT_CARRITOCOMPRAS);
+			prepStatement = connection.prepareStatement(QUERY_INSERT_CARRITOCOMPRAS,Statement.RETURN_GENERATED_KEYS);
 			prepStatement.setDate(1, carritoCompras.getFechaCompra());
 			prepStatement.setDate(2, carritoCompras.getFehaEntrega());
 			prepStatement.setString(3, carritoCompras.getLugarEntrega());
@@ -283,11 +287,20 @@ public class CarritoComprasDAO {
 
 			insertedRows = prepStatement.executeUpdate();
 
-			if (insertedRows == 1) {
-				LOG.info("Se ha insertado correctamente el registro: " + carritoCompras.toString());
-			} else {
-				LOG.info("No se ha insertado correctamente el registro: " + carritoCompras.toString());
+			ResultSet rs = prepStatement.getGeneratedKeys();
+			int key = 0;
+			if (rs.next()) {
+				key = rs.getInt(1);
 			}
+
+			LOG.info("llave insertada: " + key);
+
+			if (key > 0) {
+				LOG.info("Se ha registrado correctamente el registro: " + carritoCompras.toString());
+			} else {
+				LOG.info("No se ha registrado correctamente el registro: " + carritoCompras.toString());
+			}
+			
 		} catch (SQLException e) {
 			LOG.error("SQLException", e);
 

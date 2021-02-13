@@ -17,9 +17,9 @@ public class EditorialDAO {
 	private ResultSet resultSet;
 	private static final String QUERY_SELECT_ALL_EDITORIAL = "SELECT ideditorial,nombreeditorial,lugardeimpresion "
 			+ " FROM editorial ORDER BY nombreeditorial ASC";
-	
+
 	private String QUERY_SELECT_EDITORIAL_BY_FILTERS = "SELECT ideditorial,nombreeditorial,lugardeimpresion  FROM editorial WHERE 1=1 ";
-	
+
 	private static final String QUERY_SELECT_EDITORIAL_BY_ID = "SELECT ideditorial,nombreeditorial,lugardeimpresion "
 			+ " FROM editorial WHERE ideditorial = ? ORDER BY nombreeditorial ASC";
 	private static final String QUERY_SELECT_EDITORIAL_BY_NOMBREEDITORIAL = "SELECT ideditorial,nombreeditorial,lugardeimpresion "
@@ -28,7 +28,8 @@ public class EditorialDAO {
 			+ " FROM editorial WHERE lugardeimpresion LIKE ? ORDER BY nombreeditorial ASC";
 	private static final String QUERY_INSERT_EDITORIAL = "INSERT INTO editorial(nombreeditorial, lugardeimpresion) VALUES (?,?)";
 	private static final String QUERY_DELETE_EDITORIAL = "DELETE FROM editoriaL WHERE ideditorial = ?  ";
-	private static final String QUERY_UPDATE_EDITORIAL = "UPDATE editoriaL SET nombreeditorial =?, lugardeimpresion=?";
+	private static final String QUERY_UPDATE_EDITORIAL = "UPDATE editoriaL SET nombreeditorial =?, lugardeimpresion=? WHERE ideditorial =?";
+
 	public List<Editorial> selectAllEditorial() {
 		List<Editorial> editorialList = new ArrayList<Editorial>();
 		Connection connection = null;
@@ -179,7 +180,7 @@ public class EditorialDAO {
 		}
 		return insertedRows;
 	}
-	
+
 	public int deleteEditorial(Editorial editorial) {
 		int deletedRows = -3;
 		Connection connection = null;
@@ -188,59 +189,59 @@ public class EditorialDAO {
 			connection = dbConnection.getConnection();
 			prepStatement = connection.prepareStatement(QUERY_DELETE_EDITORIAL);
 			prepStatement.setInt(1, editorial.getIdEditorial());
-			
+
 			deletedRows = prepStatement.executeUpdate();
-			
+
 			if (deletedRows == 1) {
 				LOG.info("El registro se ha eliminado correctamente" + editorial.toString());
-			}else {
+			} else {
 				LOG.info("El registro no se ha elimnado correctamente" + editorial.toString());
 			}
-		}catch(SQLException e) {
-			LOG.error("SQLExcepion",e);
-		}finally {
+		} catch (SQLException e) {
+			LOG.error("SQLExcepion", e);
+		} finally {
 			if (connection != null) {
 				try {
 					connection.close();
-				}catch(SQLException e) {
-					LOG.error("SQLException",e);
+				} catch (SQLException e) {
+					LOG.error("SQLException", e);
 				}
 			}
 		}
 		return deletedRows;
 	}
-	
+
 	public int updateEditorial(Editorial editorial) {
 		int updatedRows = -3;
 		Connection connection = null;
-		
+
 		try {
 			DBConnection dbConnection = new DBConnection();
 			connection = dbConnection.getConnection();
 			prepStatement = connection.prepareStatement(QUERY_UPDATE_EDITORIAL);
-			prepStatement.setInt(1,editorial.getIdEditorial());
-			
+			prepStatement.setString(1, editorial.getNombreEditorial());
+			prepStatement.setString(2, editorial.getLugarDeImpresion());
+			prepStatement.setInt(3, editorial.getIdEditorial());
 			updatedRows = prepStatement.executeUpdate();
-			
 			if (updatedRows == 1) {
 				LOG.info("Se ha actualizado correctamente el registro" + editorial.toString());
-			}else {
+			} else {
 				LOG.info("No se han actualizado correctamente los registros" + editorial.toString());
 			}
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			LOG.error("SQLException", e);
-		}finally {
-			if(connection != null) {
+		} finally {
+			if (connection != null) {
 				try {
 					connection.close();
-				}catch(SQLException e) {
+				} catch (SQLException e) {
 					LOG.error("SQLException", e);
 				}
 			}
 		}
-		return  updatedRows;
+		return updatedRows;
 	}
-	
+
 	public List<Editorial> selectEditorialByFilters(Editorial editorialToFind) {
 		List<Editorial> editorialList = new ArrayList<Editorial>();
 		Connection connection = null;
@@ -250,7 +251,6 @@ public class EditorialDAO {
 			prepStatement = connection.prepareStatement(buildQuery(editorialToFind));
 			buildFilters(editorialToFind);
 
-			
 			resultSet = prepStatement.executeQuery();
 
 			while (resultSet.next()) {
@@ -272,12 +272,12 @@ public class EditorialDAO {
 
 		return editorialList;
 	}
-	
+
 	private String buildQuery(Editorial editorialToFind) {
 		if (editorialToFind == null) {
 			return QUERY_SELECT_EDITORIAL_BY_FILTERS;
 		}
-		
+
 		if (editorialToFind.getIdEditorial() > 0) {
 
 			LOG.info(QUERY_SELECT_EDITORIAL_BY_FILTERS);
@@ -292,19 +292,18 @@ public class EditorialDAO {
 			QUERY_SELECT_EDITORIAL_BY_FILTERS += " AND lugardeimpresion LIKE ?";
 		}
 
-	
-		LOG.info( QUERY_SELECT_EDITORIAL_BY_FILTERS);
+		LOG.info(QUERY_SELECT_EDITORIAL_BY_FILTERS);
 		return QUERY_SELECT_EDITORIAL_BY_FILTERS;
-	
+
 	}
 
 	private void buildFilters(Editorial editorialToFind) throws SQLException {
 		if (editorialToFind == null) {
-			return ;
+			return;
 		}
-		
+
 		int counter = 1;
-		
+
 		if (editorialToFind.getIdEditorial() > 0) {
 			prepStatement.setInt(counter++, editorialToFind.getIdEditorial());
 		}
@@ -314,9 +313,8 @@ public class EditorialDAO {
 		}
 
 		if (editorialToFind.getLugarDeImpresion() != null && !editorialToFind.getLugarDeImpresion().trim().isEmpty()) {
-			prepStatement.setString(counter++, "%" + editorialToFind.getLugarDeImpresion() + "%");	
-			}
+			prepStatement.setString(counter++, "%" + editorialToFind.getLugarDeImpresion() + "%");
+		}
 
-				
 	}
 }

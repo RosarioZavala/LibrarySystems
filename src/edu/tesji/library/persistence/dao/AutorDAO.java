@@ -28,7 +28,7 @@ public class AutorDAO {
 			+ "FROM autor WHERE nacionalidad LIKE ?";
 	private static final String QUERY_INSERT_AUTOR = "INSERT INTO autor (claveautor,nombrecompleto, nacionalidad) values (?,?,?) ";
 	private static final String QUERY_DELETE_AUTOR = "DELETE  FROM autor WHERE idautor =?";
-	private static final String QUERY_UPDATE_AUTOR = "UPDATE autor SET claveautor =?,nombrecompleto = ?, nacionalidad = ? WHERE idautor=?";
+	private static final String QUERY_UPDATE_AUTOR = "UPDATE autor SET claveautor =?, nombrecompleto =?, nacionalidad =? WHERE idautor=?";
 	private String querySelectAutorByFilters = "SELECT idautor, claveautor,nombrecompleto,nacionalidad"
 			+ " FROM autor WHERE 1=1 ";
 	
@@ -248,8 +248,11 @@ public class AutorDAO {
 			DBConnection dbConnection = new DBConnection();
 			connection = dbConnection.getConnection();
 			prepStatement = connection.prepareStatement(QUERY_UPDATE_AUTOR);
-			prepStatement.setInt(1, autorUp.getIdautor());
-
+			
+			prepStatement.setString(1,autorUp.getClaveautor());
+			prepStatement.setString(2,autorUp.getNombreCompleto());	
+			prepStatement.setString(3,autorUp.getNacionalidad());
+			prepStatement.setInt(4, autorUp.getIdautor());
 			updatedRows = prepStatement.executeUpdate();
 
 			if (updatedRows == 1) {
