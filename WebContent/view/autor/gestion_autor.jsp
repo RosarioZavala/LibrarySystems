@@ -35,7 +35,11 @@
 		var form = this.document.getElementById("autorForm");
 		form.submit();
 	}
-	
+	function update_autor(){
+		this.document.getElementById("action").value = 'update';
+		var frm = this.document.getElementById("autorForm");
+		frm.submit();
+	}
 	function mostrar_alert_delete() {
 		var msg = '${messageError}';
 		if (msg.length > 1) {
@@ -161,7 +165,7 @@
 
 				<div class="col-2">
 					<div class="p-3">
-						<button id="btnActualizar" class="btn btn-info">
+						<button type="button" id="btnActualizar" class="btn btn-info" onclick="update_autor()">
 							<span class="glyphicon glyphicon-search"></span> Actualizar
 						</button>
 					</div>

@@ -22,14 +22,30 @@
 			alert(msg);
 		}
 	}
+	function update_editorial(){
+		this.document.getElementById("action").value = 'update';
+		var frm = this.document.getElementById("editorialForm");
+		frm.submit();
+	}
+	function delete_editorial() {
+		this.document.getElementById("action").value = 'delete';
+		var form = this.document.getElementById("editorialForm");
+		form.submit();
+	}
 	function find_editorial() {
 		this.document.getElementById("action").value = 'find';
 		var form = this.document.getElementById("editorialForm");
 		form.submit();
 	}
+	
+	function selectRowForUpdateOrDelete(value) {
+		this.document.getElementById("idEditorialForDeleteOrUpdate").value = value;
+	}
+
+
 </script>
 </head>
-<body>
+<body onload="mostrar_alertEdi()" >
 
 	<jsp:include page="/view/login/menu_admin.jsp" flush="true" />
 
@@ -45,6 +61,8 @@
 
 	<form action="editorial" method="get" id="editorialForm" role="form">
 		<input type="hidden" id="action" name="action">
+		<input type="hidden" id="idEditorialForDeleteOrUpdate"
+			name="idEditorialForDeleteOrUpdate">
 		<div class="container overflow-hidden">
 			<div class="row gy-5">
 				<div class="col-7">
@@ -61,7 +79,7 @@
 				<div class="col-4">
 					<div class="p-3">
 						<label for="lugarImpresionTXT" class="form-label">Lugar impresion</label> <input type="text" class="form-control"
-							id="lugarImpresionTXT" name="lugarImpresionTXT" placeholder="Por ejemplo: México" required>
+							id="lugarImpresionTXT" name="lugarImpresionTXT" placeholder="Por ejemplo: Mexicana" required>
 					</div>
 				</div>
 
@@ -82,6 +100,7 @@
 
 								<th scope="col">Nombre Editorial</th>
 								<th scope="col">Lugar Impresión</th>
+								<th scope="col">Editar/Eliminar</th>
 
 							</tr>
 						</thead>
@@ -90,6 +109,10 @@
 								<tr id="${editorial.idEditorial}">
 									<td>${editorial.nombreEditorial}</td>
 									<td>${editorial.lugarDeImpresion}</td>
+									<td><input class="form-check-input" type="radio"
+										name="inlineRadioOptions" id="${editorial.idEditorial}"
+										onchange="selectRowForUpdateOrDelete(this.value)"
+										value="${editorial.idEditorial}"></td>
 
 
 								</tr>
@@ -127,11 +150,20 @@
 
 				<div class="col-2" style="margin-left: 5px">
 					<div class="p-3">
-						<button id="btnActualizarEd" type="submit" class="btn btn-info">
+						<button id="btnActualizarEd" type="button" class="btn btn-info" onclick="update_editorial()">
 							<span class="glyphicon glyphicon-search"></span> Actualizar
 						</button>
 					</div>
 
+				</div>
+				
+				<div class="col-2">
+					<div class="p-3">
+						<button type="button" id="btnEliminar" type="button"
+							class="btn btn-info" onclick="delete_editorial()">
+							<span class="glyphicon glyphicon-search"></span> Eliminar
+						</button>
+					</div>
 				</div>
 				<div class="col-2">
 					<div class="p-3">
@@ -144,27 +176,8 @@
 
 				</div>
 
-
-
-
-
 			</div>
 		</div>
-
-		<div class="mb-3">
-
-			<label for="editorialSelect" class="form-label">Selecciona
-				Editorial</label> <select id="editorialSelect" name="editorialSelect"
-				class="form-select" aria-label="Default select example">
-				<c:forEach var="editorial" items="${editoriales}">
-					<option value="${editorial.idEditorial}">${editorial.nombreEditorial}</option>
-				</c:forEach>
-			</select>
-
-		</div>
-
-
-
 
 	</form>
 </body>

@@ -23,12 +23,31 @@ function find_libro() {
     var frm = this.document.getElementById("librosForm");
     frm.submit();
 }
-	
+function delete_libro() {
+	this.document.getElementById("action").value = 'delete';
+	var form = this.document.getElementById("librosForm");
+	form.submit();
+}
+function update_libro() {
+	this.document.getElementById("action").value = 'update';
+	var form = this.document.getElementById("librosForm");
+	form.submit();
+}
+function mostrar_alert_delete() {
+	var msg = '${messageError}';
+	if (msg.length > 1) {
+		alert(msg);
+	}
+}
 function mostrar_alert() {
 	var msg = '${message}';
 	if (msg.length > 1) {
 		alert(msg);	
 	}
+}
+
+function selectRowForUpdateOrDelete(value) {
+	this.document.getElementById("idLibroForDeleteOrUpdate").value = value;
 }
 </script>
 
@@ -41,7 +60,8 @@ function mostrar_alert() {
 	<br>
 	<form action="libros" method="get" id="librosForm" role="form" enctype="multipart/form-data">
 		<input type="hidden" id="action" name="action">
-		
+		<input type="hidden" id="idLibroForDeleteOrUpdate"
+			name="idLibroForDeleteOrUpdate">
 		<div class="container overflow-hidden">
 			<div class="row gy-5">
 				<div class="col-6">
@@ -144,20 +164,6 @@ function mostrar_alert() {
 
 				</div>
 				
-				<div class="col-6" style="margin-top: 20px">
-					<div class="p-3">
-
-
-						<label for="portadaTXT" class="form-label">Portada</label> 
-						<input type="submit" name="btnPortada" id="btnPortada" value="Guardar">
-						<input type="submit" name="btnPortada" id="portadaTXT" value="Regresar" >
-
-
-					</div>
-
-				</div>
-
-
 				<div class="col-12">
 
 					<table class="table table-hover">
@@ -172,6 +178,7 @@ function mostrar_alert() {
 								<th scope="col">Precio Venta</th>
 								<th scope="col">Autor</th>
 								<th scope="col">Editorial</th>
+								<th scope="col">Editar/Eliminar</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -187,6 +194,10 @@ function mostrar_alert() {
 									<td>$ ${libro.precioVenta}</td>
 									<td>${libro.autor}</td>
 									<td>${libro.editorial}</td>
+									<td><input class="form-check-input" type="radio"
+										name="inlineRadioOptions" id="${libro.idLibro}"
+										onchange="selectRowForUpdateOrDelete(this.value)"
+										value="${libro.idLibro}"></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -224,7 +235,7 @@ function mostrar_alert() {
 
 				<div class="col-2" style="margin-left: 5px">
 					<div class="p-3">
-						<button id="btnActualizar" type="submit" class="btn btn-info">
+						<button id="btnActualizar" type="button" class="btn btn-info" onclick="update_libro()">
 							<span class="glyphicon glyphicon-search"></span> Actualizar
 						</button>
 					</div>
@@ -238,7 +249,7 @@ function mostrar_alert() {
 				<div class="col-2">
 					<div class="p-3">
 
-						<button id="btnEliminar" type="submit" class="btn btn-info">
+						<button id="btnEliminar" type="button" class="btn btn-info" onclick="delete_libro()" >
 							<span class="glyphicon glyphicon-search"></span> Eliminar
 						</button>
 

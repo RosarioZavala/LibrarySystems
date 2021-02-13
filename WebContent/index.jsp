@@ -8,7 +8,13 @@
 </head>
 <body>
 
-<jsp:forward page="/view/login/login.jsp" />
+
+<%-- <jsp:forward page="/view/viewClient/menuClient.jsp" /> --%>
+<%-- <jsp:forward page="/view/viewClient/menuClient.jsp" /> --%>
+<%-- <jsp:forward page="/view/viewClient/detalleLibro.jsp" /> --%>
+<%-- <jsp:forward page="/view/login/login.jsp" /> --%>
+<jsp:forward page="/view/viewClient/inicioCliente.jsp" />  
+<%-- <jsp:forward page="http://127.0.0.1:8080/LibrarySystems/libro?action=init" /> --%>
 
 </body>
 </html>
