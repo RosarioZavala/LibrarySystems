@@ -39,7 +39,7 @@ public class EditorialController extends HttpServlet {
         log.info("##### controller editorial: " + action);
         String nombreEditorial = request.getParameter("nombreEditorialTXT");
         String lugarImpresion = request.getParameter("lugarImpresionTXT");
-       
+        String idEditorialForDeleteOrUpdate = request.getParameter("idEditorialForDeleteOrUpdate");
         Editorial editorialEntity = new Editorial(0,nombreEditorial,lugarImpresion );
         		
         switch (action) {
@@ -70,6 +70,59 @@ public class EditorialController extends HttpServlet {
 			
 			log.info("#######Número de registros agregados" + editorialEntity);
 			break;
+			
+        case SessionAttributes.ACTION_UPDATE:
+        	log.info("Actualizando registro");
+			
+			
+			if (idEditorialForDeleteOrUpdate == null || idEditorialForDeleteOrUpdate.trim().isEmpty()) {
+				message = "Debe de seleccionar un registro para Actualizarlo.";
+				List<Editorial>listaUp = loadEditoriales();
+				request.setAttribute("editoriales", listaUp);
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/view/editorial/gestion_editorial.jsp").forward(request, response);
+				break;
+			}
+			editorialEntity.setIdEditorial(Integer.parseInt(idEditorialForDeleteOrUpdate));
+			int affectedRowsUpdated = updateEditorial(editorialEntity);
+			if (affectedRowsUpdated == 1) {
+				message = "Registro acctualizado exitosamente.";
+			} else {
+				message = "Registro NO actualizado.";
+			}
+			request.setAttribute("message", message);
+
+			List<Editorial>listaUp = loadEditoriales();
+			request.setAttribute("editoriales", listaUp);
+			request.getRequestDispatcher("/view/editorial/gestion_editorial.jsp").forward(request, response);
+			
+        	break;
+        case SessionAttributes.ACTION_DELETE:
+        	log.info("Eliminando registro");
+			
+			
+			if (idEditorialForDeleteOrUpdate == null || idEditorialForDeleteOrUpdate.trim().isEmpty()) {
+				message = "Debe de seleccionar un registro para Eliminarlo.";
+				List<Editorial>listaDel = loadEditoriales();
+				request.setAttribute("editoriales", listaDel);
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/view/editorial/gestion_editorial.jsp").forward(request, response);
+				break;
+			}
+			editorialEntity.setIdEditorial(Integer.parseInt(idEditorialForDeleteOrUpdate));
+			int affectedRowsDel = deleteEditorial(editorialEntity);
+			if (affectedRowsDel == 1) {
+				message = "Registro eliminado exitosamente.";
+			} else {
+				message = "Registro NO eliminado.";
+			}
+			request.setAttribute("message", message);
+
+			List<Editorial>listaDel = loadEditoriales();
+			request.setAttribute("editoriales", listaDel);
+			request.getRequestDispatcher("/view/editorial/gestion_editorial.jsp").forward(request, response);
+			
+        	break;
 
 		case SessionAttributes.ACTION_FIND:
 			log.info("Buscando Registro: " + editorialEntity.toString());
@@ -84,12 +137,28 @@ public class EditorialController extends HttpServlet {
     }
 
 
+
+
+
+
+
 	/**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
+	private int updateEditorial(Editorial editorialEntity) {
+	EditorialDAO dao = new EditorialDAO();
+		return dao.updateEditorial(editorialEntity);
+	}
+
+    
+	private int deleteEditorial(Editorial editorialEntity) {
+		EditorialDAO dao = new EditorialDAO();
+		
+		return dao.deleteEditorial(editorialEntity);
+	}
 
 
     private List<Editorial> loadEditoriales() {

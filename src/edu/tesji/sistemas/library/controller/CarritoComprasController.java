@@ -31,7 +31,9 @@ public class CarritoComprasController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String action = request.getParameter("action");
 		log.info("#### controller carrito compras" + action);
-		
+		String fehaEntrega = request.getParameter("periodoInTXT");
+		String fechaCompra = request.getParameter("periodoFinTXT");
+		log.info("#### controller carrito compras" + fehaEntrega);
 		switch (action) {
 		case SessionAttributes.ACTION_INIT:
 			log.info("###### Cargando catálogo de Carrito Compras");
